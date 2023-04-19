@@ -1,11 +1,9 @@
 package com.example.applicationprototype
 
 import android.annotation.SuppressLint
-import android.app.Instrumentation.ActivityResult
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
@@ -32,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.button2).setOnClickListener {
-                val intent = Intent(this, activity_add_animal::class.java)
+                val intent = Intent(this, AddAnimalActivity::class.java)
                 startActivityForResult(intent, 1)
         }
 
