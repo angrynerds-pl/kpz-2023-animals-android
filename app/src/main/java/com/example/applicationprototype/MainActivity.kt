@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
     var ifAdd: Boolean = false
     var text: String = ""
     var strings = arrayListOf<String>()
+    var descriptions = arrayListOf<String>()
 
 
     @SuppressLint("SuspiciousIndentation")
@@ -26,13 +27,14 @@ class MainActivity : AppCompatActivity() {
                 if (ifAdd) {
                     it.putExtra("EXTRA_BOOLEAN", ifAdd)
                     it.putExtra("EXTRA_ARRAY", strings)
+                    it.putExtra("EXTRA_DESC", descriptions)
                 }
                 startActivity(it)
             }
         }
 
         findViewById<Button>(R.id.button2).setOnClickListener {
-                val intent = Intent(this, activity_add_animal::class.java)
+                val intent = Intent(this, AddAnimalActivity::class.java)
                 startActivityForResult(intent, 1)
         }
 
@@ -45,6 +47,8 @@ class MainActivity : AppCompatActivity() {
                 ifAdd = data.getBooleanExtra("EXTRA_BOOLEAN", false)
                 text = data?.getStringExtra("EXTRA_STRING").toString()
                 strings.add(text)
+                text = data?.getStringExtra("EXTRA_DESC").toString()
+                descriptions.add(text)
             }
 
         }

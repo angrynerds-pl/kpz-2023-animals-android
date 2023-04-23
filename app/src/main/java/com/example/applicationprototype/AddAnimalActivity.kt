@@ -7,15 +7,19 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 
-class activity_add_animal : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_animal)
-    }
+class AddAnimalActivity : AppCompatActivity() {
+
     var text1 : String = "a"
     var text2 : String = "a"
     var text3 : String = "a"
     var concatText : String = "a"
+    var description : String = "a"
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_add_animal)
+    }
+
 
     fun toastMsg(msg:String){
         val toast = Toast.makeText(this,msg,Toast.LENGTH_LONG)
@@ -36,6 +40,7 @@ class activity_add_animal : AppCompatActivity() {
             val intent = Intent()
             intent.putExtra("EXTRA_STRING", concatText)
             intent.putExtra("EXTRA_BOOLEAN", true)
+            intent.putExtra("EXTRA_DESC", description)
             setResult(1, intent)
             finish()
         }
@@ -46,6 +51,7 @@ class activity_add_animal : AppCompatActivity() {
         text2 = findViewById<EditText>(R.id.editText2).text.toString()
         text3 = findViewById<EditText>(R.id.editText3).text.toString()
         concatText = text1.plus("\n").plus(text2).plus("\n").plus(text3)
+        description = findViewById<EditText>(R.id.editTextTextMultiLine).text.toString()
     }
 
 }

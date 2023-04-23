@@ -12,7 +12,13 @@
         android:theme="@style/Theme.ApplicationPrototype"
         tools:targetApi="31">
         <activity
-            android:name=".activity_add_animal"
+            android:name=".ListItemActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AnimalView"
+            android:exported="false" />
+        <activity
+            android:name=".AddAnimalActivity"
             android:exported="false" />
         <activity
             android:name=".AnimalsList"
