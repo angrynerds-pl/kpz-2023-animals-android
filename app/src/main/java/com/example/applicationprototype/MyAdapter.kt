@@ -28,15 +28,13 @@ class MyAdapter(private val animalsList : ArrayList<Animal>) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val currentItem = animalsList[position]
-        holder.titleImage.setImageResource(currentItem.titleImage)
+        holder.titleImage.setImageBitmap(currentItem.titleImage)
         holder.tvHeading.text = currentItem.heading
     }
 
     class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val titleImage  : ShapeableImageView = itemView.findViewById(R.id.title_image)
         val tvHeading : TextView = itemView.findViewById(R.id.tvHeading)
-
-
     }
 
 }

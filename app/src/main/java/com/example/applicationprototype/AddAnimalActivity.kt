@@ -4,23 +4,30 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.applicationprototype.databinding.ActivityAddAnimalBinding
+import java.io.ByteArrayOutputStream
 
 class AddAnimalActivity : AppCompatActivity() {
-    var pickedPhoto: Uri? = null
-    var pickedBitMap: Bitmap? = null
-    public lateinit var bilding: ActivityAddAnimalBinding
+    private lateinit var pickedBitMap: Bitmap
+    private lateinit var bilding: ActivityAddAnimalBinding
+
+    private lateinit var textName: String
+    private lateinit var textLocality: String
+    private lateinit var textDate: String
+    private lateinit var concatText: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,22 +35,19 @@ class AddAnimalActivity : AppCompatActivity() {
         setContentView(bilding.root)
         //setContentView(R.layout.activity_add_animal)
     }
-    var textName : String = "a"
-    var textLocality : String = "a"
-    var textDate : String = "a"
-    var concatText : String = "a"
 
-    fun toastMsg(msg:String){
+    private fun toastMsg(msg:String){
         val toast = Toast.makeText(this,msg,Toast.LENGTH_LONG)
         toast.show()
     }
 
     fun displayToastMsg(v: View){
-        val textView1 = findViewById<EditText>(R.id.editTextName)
-        val textView2 = findViewById<EditText>(R.id.editTextLocality)
-        val textView3 = findViewById<EditText>(R.id.editTextDate)
+        val name = findViewById<EditText>(R.id.editTextName)
+        val locality = findViewById<EditText>(R.id.editTextLocality)
+        val date = findViewById<EditText>(R.id.editTextDate)
 
-        if(textView1.text.toString().isEmpty() || textView2.text.toString().isEmpty() || textView3.text.toString().isEmpty()) {
+        if(name.text.toString().isEmpty() || locality.text.toString().isEmpty() ||
+            date.text.toString().isEmpty() || pickedBitMap == null) {
             toastMsg("Nie podano wszystkich danych")
         }
         else {
@@ -51,17 +55,30 @@ class AddAnimalActivity : AppCompatActivity() {
             getData()
             val intent = Intent()
             intent.putExtra("EXTRA_STRING", concatText)
+            intent.putExtra("EXTRA_PNG", compressBitmap(pickedBitMap))
             intent.putExtra("EXTRA_BOOLEAN", true)
             setResult(1, intent)
+            //startActivity(intent)
             finish()
         }
     }
 
-    fun getData() {
+    private fun getData() {
         textName = findViewById<EditText>(R.id.editTextName).text.toString()
         textLocality = findViewById<EditText>(R.id.editTextLocality).text.toString()
         textDate = findViewById<EditText>(R.id.editTextDate).text.toString()
         concatText = textName.plus("\n").plus(textLocality).plus("\n").plus(textDate)
+    }
+
+    private fun compressBitmap(bitmap: Bitmap): ByteArray {
+        try {
+            val outputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream)
+            return outputStream.toByteArray()
+        } catch (e: Exception) {
+            Log.e("compressBitmap", "Error compressing bitmap: ${e.message}")
+            throw e
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -69,7 +86,7 @@ class AddAnimalActivity : AppCompatActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if(grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
             val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(galleryIntent, 2)
         }
@@ -88,15 +105,14 @@ class AddAnimalActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if(requestCode == 2 && resultCode == Activity.RESULT_OK && data != null ){
-            pickedPhoto = data.data
-            if (Build.VERSION.SDK_INT >= 28){
-                val source = ImageDecoder.createSource(this.contentResolver, pickedPhoto!!)
-                pickedBitMap = ImageDecoder.decodeBitmap(source)
+            var pickedPhoto: Uri = data.data!!
+            pickedBitMap = if (Build.VERSION.SDK_INT >= 28){
+                ImageDecoder.decodeBitmap(ImageDecoder.createSource(this.contentResolver, pickedPhoto!!))
             }else{
-                pickedBitMap = MediaStore.Images.Media.getBitmap(this.contentResolver, pickedPhoto)
+                MediaStore.Images.Media.getBitmap(this.contentResolver, pickedPhoto)
             }
             bilding.imageView.setImageBitmap(pickedBitMap)
-            bilding.textViewAddPhoto.setText("")
+            bilding.textViewAddPhoto.text = ""
         }
         super.onActivityResult(requestCode, resultCode, data)
     }

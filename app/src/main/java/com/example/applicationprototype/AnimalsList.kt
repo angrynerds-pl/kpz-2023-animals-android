@@ -1,8 +1,12 @@
 package com.example.applicationprototype
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +15,7 @@ import com.example.recyclerview.MyAdapter
 class AnimalsList : AppCompatActivity() {
 
     private lateinit var newRecyclerView : RecyclerView
+    private var animalPhoto: Bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
     private lateinit var newArrayList : ArrayList<Animal>
     private lateinit var helpStringList: ArrayList<String>
     lateinit var imageId : Array<Int>
@@ -28,6 +33,10 @@ class AnimalsList : AppCompatActivity() {
         ifAdd = intent.getBooleanExtra("EXTRA_BOOLEAN", false)
         if(ifAdd) {
             helpStringList = intent.getStringArrayListExtra("EXTRA_ARRAY") as ArrayList<String>
+            val byteArray = intent.getByteArrayExtra("EXTRA_PNG")
+            if (byteArray != null && byteArray.isNotEmpty()) {
+                animalPhoto = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+            }
         }
 
 
@@ -58,13 +67,13 @@ class AnimalsList : AppCompatActivity() {
     }
 
     private fun getUserData(){
-        for(i in imageId.indices){
-            val animal = Animal(imageId[i],heading[i])
-            newArrayList.add(animal)
-        }
+        //for(i in imageId.indices){
+        //    val animal = Animal(imageId[i],heading[i])
+        //    newArrayList.add(animal)
+        //}
         if(ifAdd){
             for(i in helpStringList){
-                val animal = Animal(R.drawable.f, i)
+                val animal = Animal(animalPhoto, i)
                 newArrayList.add(animal)
             }
         }
