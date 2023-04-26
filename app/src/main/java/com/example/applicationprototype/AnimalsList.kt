@@ -33,7 +33,7 @@ class AnimalsList : AppCompatActivity() {
         ifAdd = intent.getBooleanExtra("EXTRA_BOOLEAN", false)
         if(ifAdd) {
             helpStringList = intent.getStringArrayListExtra("EXTRA_ARRAY") as ArrayList<String>
-            val byteArray = intent.getByteArrayExtra("EXTRA_PNG")
+            val byteArray = intent.getByteArrayExtra("EXTRA_JPEG")
             if (byteArray != null && byteArray.isNotEmpty()) {
                 animalPhoto = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
             }

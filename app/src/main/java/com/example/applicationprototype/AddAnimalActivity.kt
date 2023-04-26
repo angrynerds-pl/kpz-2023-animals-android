@@ -55,7 +55,7 @@ class AddAnimalActivity : AppCompatActivity() {
             getData()
             val intent = Intent()
             intent.putExtra("EXTRA_STRING", concatText)
-            intent.putExtra("EXTRA_PNG", compressBitmap(pickedBitMap))
+            intent.putExtra("EXTRA_JPEG", compressBitmap(pickedBitMap))
             intent.putExtra("EXTRA_BOOLEAN", true)
             setResult(1, intent)
             //startActivity(intent)
@@ -71,14 +71,9 @@ class AddAnimalActivity : AppCompatActivity() {
     }
 
     private fun compressBitmap(bitmap: Bitmap): ByteArray {
-        try {
-            val outputStream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream)
-            return outputStream.toByteArray()
-        } catch (e: Exception) {
-            Log.e("compressBitmap", "Error compressing bitmap: ${e.message}")
-            throw e
-        }
+        val outputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream)
+        return outputStream.toByteArray()
     }
 
     override fun onRequestPermissionsResult(

@@ -2,6 +2,7 @@ package com.example.applicationprototype
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -11,6 +12,7 @@ class MainActivity : AppCompatActivity() {
     var ifAdd: Boolean = false
     var text: String = ""
     var strings = arrayListOf<String>()
+    private lateinit var animalPhoto: ByteArray
 
 
     @SuppressLint("SuspiciousIndentation")
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity() {
                 if (ifAdd) {
                     it.putExtra("EXTRA_BOOLEAN", ifAdd)
                     it.putExtra("EXTRA_ARRAY", strings)
+                    it.putExtra("EXTRA_JPEG", animalPhoto)
                 }
                 startActivity(it)
             }
@@ -42,6 +45,8 @@ class MainActivity : AppCompatActivity() {
             if (data != null) {
                 ifAdd = data.getBooleanExtra("EXTRA_BOOLEAN", false)
                 text = data?.getStringExtra("EXTRA_STRING").toString()
+                animalPhoto = data?.getByteArrayExtra("EXTRA_JPEG")!!
+
                 strings.add(text)
             }
 
