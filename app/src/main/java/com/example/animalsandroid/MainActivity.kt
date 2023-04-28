@@ -1,12 +1,9 @@
-package com.example.applicationprototype
+package com.example.animalsandroid
 
 import android.annotation.SuppressLint
-import android.app.Instrumentation.ActivityResult
 import android.content.Intent
-import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
