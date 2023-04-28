@@ -1,10 +1,12 @@
 package com.example.applicationprototype
 
 import android.annotation.SuppressLint
+import android.app.Instrumentation.ActivityResult
 import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
@@ -12,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     var ifAdd: Boolean = false
     var text: String = ""
     var strings = arrayListOf<String>()
+    var descriptions = arrayListOf<String>()
     private lateinit var animalPhoto: ByteArray
 
 
@@ -27,6 +30,7 @@ class MainActivity : AppCompatActivity() {
                     it.putExtra("EXTRA_BOOLEAN", ifAdd)
                     it.putExtra("EXTRA_ARRAY", strings)
                     it.putExtra("EXTRA_JPEG", animalPhoto)
+                    it.putExtra("EXTRA_DESC", descriptions)
                 }
                 startActivity(it)
             }
@@ -48,6 +52,8 @@ class MainActivity : AppCompatActivity() {
                 animalPhoto = data?.getByteArrayExtra("EXTRA_JPEG")!!
 
                 strings.add(text)
+                text = data?.getStringExtra("EXTRA_DESC").toString()
+                descriptions.add(text)
             }
 
         }

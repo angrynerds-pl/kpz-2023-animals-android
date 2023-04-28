@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">ApplicationPrototype</string>
+
+    <string name="item_a">Bella to kotka syberyjska. W jej umaszczeniu dominuje kolor szary z przebłyskami rudego.
+        Ma charakterystyczną białą plamkę na końcu ogonka. Reaguje na swoje imię. Zaginęła 25.03.2023 w okolicah ulicy Janiszewskiego.
+        Na znalazcę czeka nagroda.
+    </string>
+    <string name="item_b">Bella to kotka syberyjska. W jej umaszczeniu dominuje kolor szary z przebłyskami rudego.
+        Ma charakterystyczną białą plamkę na końcu ogonka. Reaguje na swoje imię. Zaginęła 25.03.2023 w okolicah ulicy Janiszewskiego.
+        Na znalazcę czeka nagroda.
+    </string>
+    <string name="item_c">Pumba to dachowiec o bardzo zróżnicowanym kolorze sierści. Dominują kolor biały, rudy oraz czarny.
+        Pumba wyszła z domu na ulicy "nazwa_ulicy" w opolu i nie wróciła do domu. Jeśli ktokolwiek ją widział,
+        proszę o kontakt pod podany numer telefonu.
+    </string>
+    <string name="item_d">Pumba to dachowiec o bardzo zróżnicowanym kolorze sierści. Dominują kolor biały, rudy oraz czarny.
+        Pumba wyszła z domu na ulicy "nazwa_ulicy" w opolu i nie wróciła do domu. Jeśli ktokolwiek ją widział,
+        proszę o kontakt pod podany numer telefonu.
+    </string>
+    <string name="item_e">Hector to kundel brązowego koloru, bardzo aktywny i wybiegany. Reaguje na swoje imię ale
+        jest bardzo płochliwy w stosunku do obcych. Bardzo proszę o kontakt jeśli zobaczyliście gdzieś Hectora.
+    </string>
 </resources>
