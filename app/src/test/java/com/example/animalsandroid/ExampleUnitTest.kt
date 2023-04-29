@@ -1,4 +1,4 @@
-package com.example.applicationprototype
+package com.example.animalsandroid
 
 import org.junit.Test
 

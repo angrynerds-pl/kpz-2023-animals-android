@@ -1,25 +1,24 @@
-package com.example.applicationprototype
+package com.example.animalsandroid
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recyclerview.MyAdapter
 
 class AnimalsList : AppCompatActivity() {
 
     private lateinit var newRecyclerView : RecyclerView
+    private var animalPhoto: Bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
     private lateinit var newArrayList : ArrayList<Animal>
     private lateinit var helpStringList : ArrayList<String>
     private lateinit var descriptions : ArrayList<String>
     lateinit var imageId : Array<Int>
     lateinit var heading : Array<String>
     lateinit var desc : ArrayList<String>
+    lateinit var byteArray : ByteArray
 
     var ifAdd = false
 
@@ -28,12 +27,18 @@ class AnimalsList : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_animals_list)
 
+        //Log.d("SPRAWDZENIE", " Stworzenie")
 
         ifAdd = intent.getBooleanExtra("EXTRA_BOOLEAN", false)
         if(ifAdd) {
             helpStringList = intent.getStringArrayListExtra("EXTRA_ARRAY") as ArrayList<String>
+            byteArray = intent.getByteArrayExtra("EXTRA_JPEG")!!
+            if (byteArray != null && byteArray.isNotEmpty()) {
+                animalPhoto = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+            }
             descriptions = intent.getStringArrayListExtra("EXTRA_DESC") as ArrayList<String>
         }
+
 
         imageId = arrayOf(
             R.drawable.a,
@@ -42,6 +47,7 @@ class AnimalsList : AppCompatActivity() {
             R.drawable.d,
             R.drawable.e
         )
+
 
         heading = arrayOf(
             "Bella\nWrocław\n25.03.2023",
@@ -69,13 +75,13 @@ class AnimalsList : AppCompatActivity() {
     }
 
     private fun getUserData(){
-        for(i in imageId.indices){
-            val animal = Animal(imageId[i],heading[i])
-            newArrayList.add(animal)
-        }
+        //for(i in imageId.indices){
+        //    val animal = Animal(imageId[i],heading[i])
+        //    newArrayList.add(animal)
+        //}
         if(ifAdd){
             for(i in helpStringList){
-                val animal = Animal(R.drawable.f, i)
+                val animal = Animal(animalPhoto, i)
                 newArrayList.add(animal)
             }
             for(i in descriptions){
@@ -89,7 +95,8 @@ class AnimalsList : AppCompatActivity() {
             override fun onItemClick(position: Int) {
 
               val intent : Intent = Intent(this@AnimalsList,ListItemActivity::class.java)
-                intent.putExtra("EXTRA_IMG",newArrayList[position].titleImage)
+                //intent.putExtra("EXTRA_IMG",newArrayList[position].titleImage)
+                intent.putExtra("EXTRA_IMG", byteArray)
                 intent.putExtra("EXTRA_DESC",desc[position])
                 startActivity(intent)
             }
@@ -98,6 +105,4 @@ class AnimalsList : AppCompatActivity() {
 
 
     }
-
-
 }

@@ -1,14 +1,15 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+
 }
 
 android {
-    namespace 'com.example.applicationprototype'
+    namespace 'com.example.animalsandroid'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.applicationprototype"
+        applicationId "com.example.animalsandroid"
         minSdk 24
         targetSdk 33
         versionCode 1
@@ -19,7 +20,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -29,6 +30,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 

@@ -1,4 +1,4 @@
-package com.example.applicationprototype
+package com.example.animalsandroid
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
