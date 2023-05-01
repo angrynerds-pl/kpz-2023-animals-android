@@ -1,6 +1,7 @@
 package com.example.animalsandroid
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -11,18 +12,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.animalsandroid.databinding.ActivityAddAnimalBinding
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AddAnimalActivity : AppCompatActivity() {
 
-    private lateinit var text1 : String
-    private lateinit var text2 : String
-    private lateinit var text3 : String
+    private lateinit var name : String
+    private lateinit var locality : String
+    private lateinit var date : String
     private lateinit var concatText : String
     private lateinit var description : String
 
@@ -37,39 +41,39 @@ class AddAnimalActivity : AppCompatActivity() {
     }
 
 
-    fun toastMsg(msg:String){
+    private fun toastMsg(msg:String){
         val toast = Toast.makeText(this,msg,Toast.LENGTH_LONG)
         toast.show()
     }
 
     fun displayToastMsg(v: View){
-        val textView1 = findViewById<EditText>(R.id.editText)
-        val textView2 = findViewById<EditText>(R.id.editText2)
-        val textView3 = findViewById<EditText>(R.id.editText3)
 
-        if(textView1.text.toString().isEmpty() || textView2.text.toString().isEmpty()
-            || textView3.text.toString().isEmpty() || pickedBitMap == null) {
+        getData()
+        if(name == "" || locality == "" || date == "" || pickedBitMap == null) {
             toastMsg("Nie podano wszystkich danych")
         }
         else {
             toastMsg("Zatwierdzono")
-            getData()
-            val intent = Intent()
-            intent.putExtra("EXTRA_STRING", concatText)
-            intent.putExtra("EXTRA_BOOLEAN", true)
-            intent.putExtra("EXTRA_DESC", description)
-            intent.putExtra("EXTRA_JPEG", compressBitmap(pickedBitMap))
-            setResult(1, intent)
-            finish()
+            sendData()
         }
     }
 
-    fun getData() {
-        text1 = findViewById<EditText>(R.id.editText).text.toString()
-        text2 = findViewById<EditText>(R.id.editText2).text.toString()
-        text3 = findViewById<EditText>(R.id.editText3).text.toString()
-        concatText = text1.plus("\n").plus(text2).plus("\n").plus(text3)
-        description = findViewById<EditText>(R.id.editTextTextMultiLine).text.toString()
+    private fun getData() {
+        name = findViewById<EditText>(R.id.editTextName).text.toString()
+        locality = findViewById<EditText>(R.id.editTextLocality).text.toString()
+        date = findViewById<EditText>(R.id.editTextDate).text.toString()
+        concatText = name.plus("\n").plus(locality).plus("\n").plus(date)
+        description = findViewById<EditText>(R.id.editTextDesc).text.toString()
+    }
+
+    private fun sendData(){
+        val intent = Intent()
+        intent.putExtra("EXTRA_STRING", concatText)
+        intent.putExtra("EXTRA_BOOLEAN", true)
+        intent.putExtra("EXTRA_DESC", description)
+        intent.putExtra("EXTRA_JPEG", compressBitmap(pickedBitMap))
+        setResult(1, intent)
+        finish()
     }
 
     private fun compressBitmap(bitmap: Bitmap): ByteArray {
@@ -112,6 +116,22 @@ class AddAnimalActivity : AppCompatActivity() {
             bilding.textViewAddPhoto.text = ""
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    fun pickDate(view: View){
+        var formatDate = SimpleDateFormat( "dd MMMM YYYY", Locale.ROOT)
+        val getDate = Calendar.getInstance()
+
+        val datePicker = DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+            DatePickerDialog.OnDateSetListener { datePicker, i, i2, i3 ->
+                val selectDate = Calendar.getInstance()
+                selectDate.set(Calendar.YEAR, i)
+                selectDate.set(Calendar.MONTH, i2)
+                selectDate.set(Calendar.DAY_OF_MONTH, i3)
+                val date = formatDate.format(selectDate.time)
+                findViewById<EditText>(R.id.editTextDate).setText(date)
+            }, getDate.get(Calendar.YEAR), getDate.get(Calendar.MONTH), getDate.get(Calendar.DAY_OF_MONTH))
+        datePicker.show()
     }
 
 
