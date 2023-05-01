@@ -12,17 +12,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.animalsandroid.databinding.ActivityAddAnimalBinding
+import com.example.animalsandroid.databinding.ActivityAddMissingReportBinding
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddAnimalActivity : AppCompatActivity() {
+class AddMissingReportActivity : AppCompatActivity() {
 
     private lateinit var name : String
     private lateinit var locality : String
@@ -31,11 +30,11 @@ class AddAnimalActivity : AppCompatActivity() {
     private lateinit var description : String
 
     private lateinit var pickedBitMap: Bitmap
-    private lateinit var bilding: ActivityAddAnimalBinding
+    private lateinit var bilding: ActivityAddMissingReportBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bilding = ActivityAddAnimalBinding.inflate(layoutInflater)
+        bilding = ActivityAddMissingReportBinding.inflate(layoutInflater)
         setContentView(bilding.root)
         //setContentView(R.layout.activity_add_animal)
     }

@@ -19,7 +19,7 @@
             android:name=".AnimalView"
             android:exported="false" />
         <activity
-            android:name=".AddAnimalActivity"
+            android:name=".AddMissingReportActivity"
             android:exported="false" />
         <activity
             android:name=".AnimalsList"

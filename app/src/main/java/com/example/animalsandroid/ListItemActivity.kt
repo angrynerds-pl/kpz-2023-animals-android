@@ -13,7 +13,7 @@ class ListItemActivity : AppCompatActivity() {
         setContentView(R.layout.activity_list_item)
 
         val mainNews : TextView = findViewById(R.id.mainText)
-        val image : ImageView = findViewById(R.id.image)
+        val image : ImageView = findViewById(R.id.imageViewLogo)
         lateinit var imageId : Bitmap
 
         val bundle : Bundle? = intent.extras
