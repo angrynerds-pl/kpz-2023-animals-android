@@ -19,9 +19,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        //val scrollView = findViewById<ScrollView>(R.id.s)
-
     }
 
     fun onClickReportMissing(view: View){
@@ -30,7 +27,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickReportFound(view: View){
-
+        val intent = Intent(this, AddFoundReportActivity::class.java)
+        startActivity(intent)
     }
 
     fun onClickMissingList(view: View){

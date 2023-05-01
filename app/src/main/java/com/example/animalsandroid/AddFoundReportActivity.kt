@@ -17,39 +17,31 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.animalsandroid.databinding.ActivityAddMissingReportBinding
+import com.example.animalsandroid.databinding.ActivityAddFoundReportBinding
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddMissingReportActivity : AppCompatActivity() {
-
-    private lateinit var name : String
-    private lateinit var locality : String
-    private lateinit var date : String
-    private lateinit var concatText : String
-    private lateinit var description : String
+class AddFoundReportActivity : AppCompatActivity() {
 
     private lateinit var pickedBitMap: Bitmap
-    private lateinit var bilding: ActivityAddMissingReportBinding
+    private lateinit var bilding: ActivityAddFoundReportBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bilding = ActivityAddMissingReportBinding.inflate(layoutInflater)
+        bilding = ActivityAddFoundReportBinding.inflate(layoutInflater)
         setContentView(bilding.root)
-        //setContentView(R.layout.activity_add_animal)
+        //setContentView(R.layout.activity_add_found_report)
     }
 
-
     private fun toastMsg(msg:String){
-        val toast = Toast.makeText(this,msg,Toast.LENGTH_LONG)
+        val toast = Toast.makeText(this,msg, Toast.LENGTH_LONG)
         toast.show()
     }
 
     fun displayToastMsg(v: View){
-
         getData()
-        if(name == "" || locality == "" || date == "" || pickedBitMap == null) {
+        if(pickedBitMap == null) {
             toastMsg("Nie podano wszystkich danych")
         }
         else {
@@ -59,19 +51,11 @@ class AddMissingReportActivity : AppCompatActivity() {
     }
 
     private fun getData() {
-        name = findViewById<EditText>(R.id.editTextSpecies).text.toString()
-        locality = findViewById<EditText>(R.id.editTextLocality).text.toString()
-        date = findViewById<EditText>(R.id.editTextDate).text.toString()
-        concatText = name.plus("\n").plus(locality).plus("\n").plus(date)
-        description = findViewById<EditText>(R.id.editTextDesc).text.toString()
     }
 
     private fun sendData(){
         val intent = Intent()
-        intent.putExtra("EXTRA_STRING", concatText)
-        intent.putExtra("EXTRA_BOOLEAN", true)
-        intent.putExtra("EXTRA_DESC", description)
-        intent.putExtra("EXTRA_JPEG", compressBitmap(pickedBitMap))
+
         setResult(1, intent)
         finish()
     }
@@ -149,6 +133,4 @@ class AddMissingReportActivity : AppCompatActivity() {
             bilding.imageView.setImageBitmap(pickedBitMap)
             bilding.textViewAddPhoto.text = ""}
     }
-
-
 }
