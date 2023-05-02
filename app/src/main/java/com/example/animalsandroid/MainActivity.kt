@@ -52,7 +52,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickVeterinaryList(view: View){
-
+        val intent = Intent(this, VeterinaryMapActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onActivityResult(requestedCode: Int, resultCode: Int, data: Intent?) {
