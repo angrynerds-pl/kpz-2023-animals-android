@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
+import android.view.View
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,27 +19,43 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
 
+    fun onClickReportMissing(view: View){
+        val intent = Intent(this, AddMissingReportActivity::class.java)
+        startActivityForResult(intent, 1)
+    }
 
-        findViewById<Button>(R.id.button).setOnClickListener {
-            Intent(this, AnimalsList::class.java).also {
-                if (ifAdd) {
-                    it.putExtra("EXTRA_BOOLEAN", ifAdd)
-                    it.putExtra("EXTRA_ARRAY", strings)
-                    it.putExtra("EXTRA_JPEG", animalPhoto)
-                    it.putExtra("EXTRA_DESC", descriptions)
-                }
-                startActivity(it)
+    fun onClickReportFound(view: View){
+        val intent = Intent(this, AddFoundReportActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun onClickMissingList(view: View){
+        Intent(this, AnimalsList::class.java).also {
+            if (ifAdd) {
+                it.putExtra("EXTRA_BOOLEAN", ifAdd)
+                it.putExtra("EXTRA_ARRAY", strings)
+                it.putExtra("EXTRA_JPEG", animalPhoto)
+                it.putExtra("EXTRA_DESC", descriptions)
             }
+            startActivity(it)
         }
+    }
 
-        findViewById<Button>(R.id.button2).setOnClickListener {
-                val intent = Intent(this, AddAnimalActivity::class.java)
-                startActivityForResult(intent, 1)
-        }
+    fun onClickAnimalProfile(view: View){
 
+    }
 
-            }
+    fun onClickTrainingList(view: View){
+
+    }
+
+    fun onClickVeterinaryList(view: View){
+        val intent = Intent(this, VeterinaryMapActivity::class.java)
+        startActivity(intent)
+    }
+
     override fun onActivityResult(requestedCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestedCode, resultCode, data)
         if (requestedCode == 1) {
