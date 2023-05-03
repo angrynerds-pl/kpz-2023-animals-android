@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".MainActivity">
+
+        <ImageView
+                android:id="@+id/imageViewLogo"
+                android:layout_width="233dp"
+                android:layout_height="223dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/logo_prototyp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.157"
+                app:layout_constraintHorizontal_bias="0.085" />
+
+        <Button
+                android:id="@+id/buttonReportMissing"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:text="Zgłoś zaginięcie"
+                android:onClick="onClickReportMissing"
+                app:layout_constraintTop_toTopOf="@+id/imageViewLogo"
+                app:layout_constraintStart_toEndOf="@+id/imageViewLogo"
+                android:layout_marginStart="72dp" />
+
+        <Button
+                android:text="Zgłoś znalezienie"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:id="@+id/buttonReportFound"
+                android:onClick="onClickReportFound"
+                app:layout_constraintTop_toTopOf="@+id/buttonReportMissing"
+                android:layout_marginStart="32dp"
+                app:layout_constraintStart_toEndOf="@+id/buttonReportMissing" />
+
+        <Button
+                android:id="@+id/buttonMissingList"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:text="Lista zaginionych zwierząt"
+                android:layout_marginTop="32dp"
+                android:onClick="onClickMissingList"
+                app:layout_constraintTop_toBottomOf="@+id/buttonReportMissing"
+                app:layout_constraintStart_toStartOf="@+id/buttonReportMissing" />
+
+        <Button
+                android:text="Profil zwierzaka"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:id="@+id/buttonAnimalProfile"
+                android:layout_marginStart="32dp"
+                android:onClick="onClickAnimalProfile"
+                app:layout_constraintStart_toEndOf="@+id/buttonMissingList"
+                app:layout_constraintTop_toTopOf="@+id/buttonMissingList" />
+
+        <Button
+                android:text="Szkolenia"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:id="@+id/buttonTrainingList"
+                android:layout_marginTop="32dp"
+                android:onClick="onClickTrainingList"
+                app:layout_constraintTop_toBottomOf="@+id/buttonMissingList"
+                app:layout_constraintStart_toStartOf="@+id/buttonMissingList" />
+
+        <Button
+                android:text="Przychodnie weterynaryjne"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:id="@+id/buttonVeterinaryList"
+                android:onClick="onClickVeterinaryList"
+                app:layout_constraintTop_toTopOf="@+id/buttonTrainingList"
+                app:layout_constraintStart_toEndOf="@+id/buttonTrainingList"
+                android:layout_marginStart="32dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
