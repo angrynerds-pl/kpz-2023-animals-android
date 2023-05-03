@@ -49,7 +49,7 @@ class AddMissingReportActivity : AppCompatActivity() {
     fun displayToastMsg(v: View){
 
         getData()
-        if(name == "" || locality == "" || date == "" || pickedBitMap == null) {
+        if(name == "" || locality == "" || date == "" || !::pickedBitMap.isInitialized) {
             toastMsg("Nie podano wszystkich danych")
         }
         else {
