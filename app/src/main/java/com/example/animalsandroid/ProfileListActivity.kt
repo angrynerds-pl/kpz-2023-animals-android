@@ -14,8 +14,6 @@ class ProfileListActivity : AppCompatActivity() {
     private lateinit var newRecyclerView : RecyclerView
     private var animalPhoto: Bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
     private lateinit var newArrayList : ArrayList<Animal>
-    private lateinit var helpStringList : ArrayList<String>
-    private lateinit var descriptions : ArrayList<String>
     lateinit var names : ArrayList<String>
     lateinit var species : ArrayList<String>
     lateinit var breeds : ArrayList<String>
@@ -46,6 +44,7 @@ class ProfileListActivity : AppCompatActivity() {
 
     fun getUserData() {
         if (ifAdd) {
+            newArrayList.clear()
             for (i in names) {
                 val animal = Animal(animalPhoto, i)
                 newArrayList.add(animal)

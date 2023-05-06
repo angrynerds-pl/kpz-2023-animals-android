@@ -50,7 +50,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickTrainingList(view: View){
-
+        Intent(this, TrainingListActivity::class.java).also{
+            startActivity(it)
+        }
     }
 
     fun onClickVeterinaryList(view: View){
