@@ -120,7 +120,8 @@
                 app:layout_constraintStart_toStartOf="@+id/editTextDate"
                 app:layout_constraintEnd_toEndOf="@+id/buttonPickDate"
                 android:layout_marginTop="32dp"
-                android:text="Numer telefonu" />
+                android:hint="Numer telefonu" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

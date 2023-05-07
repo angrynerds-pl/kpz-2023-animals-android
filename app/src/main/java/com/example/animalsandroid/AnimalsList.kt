@@ -57,13 +57,8 @@ class AnimalsList : AppCompatActivity() {
             "Hektor\nKamieniec\n3.04.2022"
         )
 
-        desc = arrayListOf(
-            getString(R.string.item_a),
-            getString(R.string.item_b),
-            getString(R.string.item_c),
-            getString(R.string.item_d),
-            getString(R.string.item_e)
-        )
+        desc = arrayListOf()
+
 
 
         newRecyclerView = findViewById(R.id.recyclerView)

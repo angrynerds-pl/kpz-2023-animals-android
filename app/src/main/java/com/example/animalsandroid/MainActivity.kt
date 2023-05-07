@@ -44,11 +44,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickAnimalProfile(view: View){
-
+        Intent(this, ProfileListActivity::class.java).also {
+            startActivity(it)
+        }
     }
 
     fun onClickTrainingList(view: View){
-
+        Intent(this, TrainingListActivity::class.java).also{
+            startActivity(it)
+        }
     }
 
     fun onClickVeterinaryList(view: View){
