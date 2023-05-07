@@ -119,7 +119,7 @@ class AddMissingReportActivity : AppCompatActivity() {
     }
 
     fun pickDate(view: View){
-        var formatDate = SimpleDateFormat( "dd MMMM YYYY",  Locale("pl", "PL"))
+        var formatDate = SimpleDateFormat( "dd MMMM YYYY", Locale.ROOT)
         val getDate = Calendar.getInstance()
 
         val datePicker = DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,

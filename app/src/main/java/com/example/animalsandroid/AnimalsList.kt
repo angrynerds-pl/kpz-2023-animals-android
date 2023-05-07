@@ -60,6 +60,7 @@ class AnimalsList : AppCompatActivity() {
         desc = arrayListOf()
 
 
+
         newRecyclerView = findViewById(R.id.recyclerView)
         newRecyclerView.layoutManager = LinearLayoutManager(this)
         newRecyclerView.setHasFixedSize(true)
