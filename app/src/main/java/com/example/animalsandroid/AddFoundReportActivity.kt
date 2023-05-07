@@ -41,7 +41,7 @@ class AddFoundReportActivity : AppCompatActivity() {
 
     fun displayToastMsg(v: View){
         getData()
-        if(pickedBitMap == null) {
+        if(!::pickedBitMap.isInitialized) {
             toastMsg("Nie podano wszystkich danych")
         }
         else {
