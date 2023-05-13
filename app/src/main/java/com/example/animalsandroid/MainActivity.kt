@@ -4,7 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     var strings = arrayListOf<String>()
     var descriptions = arrayListOf<String>()
     private lateinit var animalPhoto: ByteArray
+    var logged = 0
 
 
     @SuppressLint("SuspiciousIndentation")
@@ -21,14 +25,52 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.app_bar_menu,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.miLogin -> {
+                val intent = Intent( this, LoginActivity::class.java)
+                startActivityForResult(intent, 2)
+            }
+            R.id.miLogout -> {
+                if(logged == 0) {
+                    val toast = Toast.makeText(this, "Nie jesteś zalogowany", Toast.LENGTH_LONG)
+                    toast.show()
+                }
+                else{
+                    val toast = Toast.makeText(this, "Wylogowano", Toast.LENGTH_LONG)
+                    toast.show()
+                }
+                logged = 0
+            }
+        }
+        return true
+    }
+
     fun onClickReportMissing(view: View){
-        val intent = Intent(this, AddMissingReportActivity::class.java)
-        startActivityForResult(intent, 1)
+        if(logged == 0){
+            val toast = Toast.makeText(this,"Wymaga zalogowania", Toast.LENGTH_LONG)
+            toast.show()
+        }
+        else {
+            val intent = Intent(this, AddMissingReportActivity::class.java)
+            startActivityForResult(intent, 1)
+        }
     }
 
     fun onClickReportFound(view: View){
-        val intent = Intent(this, AddFoundReportActivity::class.java)
-        startActivity(intent)
+        if(logged == 0){
+            val toast = Toast.makeText(this,"Wymaga zalogowania", Toast.LENGTH_LONG)
+            toast.show()
+        }
+        else {
+            val intent = Intent(this, AddFoundReportActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun onClickMissingList(view: View){
@@ -44,8 +86,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickAnimalProfile(view: View){
-        Intent(this, ProfileListActivity::class.java).also {
-            startActivity(it)
+        if(logged == 0){
+            val toast = Toast.makeText(this,"Wymaga zalogowania", Toast.LENGTH_LONG)
+            toast.show()
+        }
+        else {
+            Intent(this, ProfileListActivity::class.java).also {
+                startActivity(it)
+            }
         }
     }
 
@@ -73,6 +121,12 @@ class MainActivity : AppCompatActivity() {
                 descriptions.add(text)
             }
 
+        }
+        if(requestedCode == 2){
+            if(data != null){
+                logged = data.getIntExtra("EXTRA_LOGIN",0)
+                println(logged)
+            }
         }
     }
 }

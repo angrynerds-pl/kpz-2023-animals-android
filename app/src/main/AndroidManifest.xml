@@ -15,6 +15,9 @@
         android:theme="@style/Theme.ApplicationPrototype"
         tools:targetApi="31">
         <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".TrainingListItemActivity"
             android:exported="false" />
         <activity
@@ -58,9 +61,8 @@
         </activity>
 
         <meta-data
-                android:name="com.google.android.geo.API_KEY"
-                android:value="AIzaSyCzI72hYQgwD_tmEtlzwfmESv7MzrddnYk"/>
-
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCzI72hYQgwD_tmEtlzwfmESv7MzrddnYk" />
     </application>
 
 </manifest>
