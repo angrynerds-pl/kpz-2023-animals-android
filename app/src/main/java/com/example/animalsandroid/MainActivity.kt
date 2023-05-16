@@ -4,12 +4,18 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.StrictMode
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import okhttp3.*
+import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
+
+
 
     var ifAdd: Boolean = false
     var text: String = ""
@@ -18,16 +24,32 @@ class MainActivity : AppCompatActivity() {
     private lateinit var animalPhoto: ByteArray
     var logged = 0
 
+    val client = OkHttpClient()
+
 
     @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        var policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+        testHttp()
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.app_bar_menu,menu)
         return true
+    }
+
+    fun testHttp() {
+        var request = Request.Builder().url("http://10.0.2.2:8080/users").build()
+        val call = client.newCall(request)
+        val response = call.execute()
+        println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx")
+        println(response.body.toString())
+        println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
