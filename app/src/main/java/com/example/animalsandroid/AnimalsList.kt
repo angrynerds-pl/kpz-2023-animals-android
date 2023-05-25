@@ -27,15 +27,17 @@ class AnimalsList : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_animals_list)
 
+
         //Log.d("SPRAWDZENIE", " Stworzenie")
 
         ifAdd = intent.getBooleanExtra("EXTRA_BOOLEAN", false)
         if(ifAdd) {
             helpStringList = intent.getStringArrayListExtra("EXTRA_ARRAY") as ArrayList<String>
             byteArray = intent.getByteArrayExtra("EXTRA_JPEG")!!
-            if (byteArray != null && byteArray.isNotEmpty()) {
-                animalPhoto = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
-            }
+//            if (byteArray != null && byteArray.isNotEmpty()) {
+//                animalPhoto = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+//            }
+
             descriptions = intent.getStringArrayListExtra("EXTRA_DESC") as ArrayList<String>
         }
 
@@ -70,10 +72,10 @@ class AnimalsList : AppCompatActivity() {
     }
 
     private fun getUserData(){
-        //for(i in imageId.indices){
-        //    val animal = Animal(imageId[i],heading[i])
-        //    newArrayList.add(animal)
-        //}
+//        for(i in imageId.indices){
+//            val animal = Animal(imageId[i],heading[i])
+//            newArrayList.add(animal)
+//        }
         if(ifAdd){
             for(i in helpStringList){
                 val animal = Animal(animalPhoto, i)

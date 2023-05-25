@@ -1,4 +1,4 @@
-package com.example.animalsandroid
+package com.example.animalsandroid.veterinaryMapActivity
 
 import com.google.android.gms.maps.model.LatLng
 

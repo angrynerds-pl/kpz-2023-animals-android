@@ -56,4 +56,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation "io.karn:khttp-android:-SNAPSHOT"
     implementation 'com.squareup.okhttp3:okhttp:4.0.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.4'
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
 }

@@ -1,4 +1,4 @@
-package com.example.animalsandroid
+package com.example.animalsandroid.trainingListAcivity
 
 import android.content.Intent
 import android.graphics.Bitmap
@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.animalsandroid.AddTrainingActivity
+import com.example.animalsandroid.R
 
 class TrainingListActivity : AppCompatActivity() {
 

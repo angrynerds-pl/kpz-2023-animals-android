@@ -1,4 +1,4 @@
-package com.example.animalsandroid
+package com.example.animalsandroid.trainingListAcivity
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.animalsandroid.R
 
 class TrainingListItemActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

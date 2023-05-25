@@ -1,7 +1,8 @@
-package com.example.animalsandroid
+package com.example.animalsandroid.veterinaryMapActivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.animalsandroid.R
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment

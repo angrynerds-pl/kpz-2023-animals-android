@@ -1,10 +1,11 @@
-package com.example.animalsandroid
+package com.example.animalsandroid.trainingListAcivity
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.animalsandroid.R
 import com.google.android.material.imageview.ShapeableImageView
 
 class TrainingAdapter(private val trainingsList : ArrayList<Training>) :

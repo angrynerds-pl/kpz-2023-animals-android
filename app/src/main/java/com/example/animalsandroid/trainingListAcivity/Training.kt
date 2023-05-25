@@ -1,4 +1,4 @@
-package com.example.animalsandroid
+package com.example.animalsandroid.trainingListAcivity
 
 import android.graphics.Bitmap
 import java.io.Serializable

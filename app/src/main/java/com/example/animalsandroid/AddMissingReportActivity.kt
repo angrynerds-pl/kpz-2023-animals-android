@@ -13,16 +13,22 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.animalsandroid.databinding.ActivityAddMissingReportBinding
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.OnMapReadyCallback
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
+import androidx.appcompat.app.AlertDialog
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import java.util.*
 
-class AddMissingReportActivity : AppCompatActivity() {
+class AddMissingReportActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var name : String
     private lateinit var locality : String
@@ -32,12 +38,32 @@ class AddMissingReportActivity : AppCompatActivity() {
 
     private lateinit var pickedBitMap: Bitmap
     private lateinit var bilding: ActivityAddMissingReportBinding
+    private lateinit var spinner: Spinner
+    private lateinit var mapView : MapView
+    private lateinit var googleMap : GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bilding = ActivityAddMissingReportBinding.inflate(layoutInflater)
         setContentView(bilding.root)
-        //setContentView(R.layout.activity_add_animal)
+        //setContentView(R.layout.activity_add_missing_report)
+
+        //------spinner------
+        spinner = findViewById(R.id.spinner)
+        val options = arrayOf("Option 1", "Option 2", "Option 3")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, options)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+
+        //------mapView------
+        mapView = findViewById(R.id.mapView)
+        mapView.onCreate(savedInstanceState)
+        mapView.getMapAsync(this)
+
+        val buttonPickLocation = findViewById<Button>(R.id.buttonPickLocation)
+        buttonPickLocation.setOnClickListener{
+            showMapDialog()
+        }
     }
 
 
@@ -150,5 +176,59 @@ class AddMissingReportActivity : AppCompatActivity() {
             bilding.textViewAddPhoto.text = ""}
     }
 
+    override fun onMapReady(map: GoogleMap) {
+        googleMap = map
+
+        googleMap.setOnMapClickListener { latLng ->
+            googleMap.addMarker(MarkerOptions().position(latLng))
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+        }
+    }
+
+    private fun showMapDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_map, null)
+        val dialogBuilder = AlertDialog.Builder(this)
+            .setTitle("Wybierz punkt")
+            .setView(dialogView)
+            .setPositiveButton("OK"){ dialog, _ ->
+                dialog.dismiss()
+            }
+            .setNegativeButton("Anuluj") { dialog, _ ->
+                dialog.dismiss()
+            }
+        val dialog = dialogBuilder.create();
+        dialog.show()
+
+        var dialogMapView = dialogView.findViewById<MapView>(R.id.dialogMapView)
+        dialogMapView.onCreate(dialog.onSaveInstanceState())
+        dialogMapView.onResume()
+        dialogMapView.getMapAsync { map ->
+            googleMap = map
+            googleMap.setOnMapClickListener { latLng ->
+                googleMap.addMarker(MarkerOptions().position(latLng))
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+            }
+        }
+
+    }
+    override fun onResume() {
+        super.onResume()
+        mapView.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView.onLowMemory()
+    }
 
 }

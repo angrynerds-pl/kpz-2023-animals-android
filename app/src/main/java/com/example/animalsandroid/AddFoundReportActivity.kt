@@ -91,6 +91,7 @@ class AddFoundReportActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if(requestCode == 2 && resultCode == Activity.RESULT_OK && data != null ){
             var pickedPhoto: Uri = data.data!!
+
             pickedBitMap = if (Build.VERSION.SDK_INT >= 28){
                 ImageDecoder.decodeBitmap(ImageDecoder.createSource(this.contentResolver, pickedPhoto!!))
             }else{
