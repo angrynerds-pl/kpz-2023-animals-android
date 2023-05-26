@@ -23,12 +23,14 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import androidx.appcompat.app.AlertDialog
+import com.example.animalsandroid.DTO.AnimalColorDTO
+import com.example.animalsandroid.serverCommunication.ServerCommunicator
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import java.util.*
 
-class AddMissingReportActivity : AppCompatActivity(), OnMapReadyCallback {
+class AddMissingReportActivity : AppCompatActivity(){
 
     private lateinit var name : String
     private lateinit var locality : String
@@ -38,9 +40,10 @@ class AddMissingReportActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var pickedBitMap: Bitmap
     private lateinit var bilding: ActivityAddMissingReportBinding
-    private lateinit var spinner: Spinner
+    //private lateinit var spinner: Spinner
     private lateinit var mapView : MapView
     private lateinit var googleMap : GoogleMap
+    private var dialogMapView : MapView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,17 +52,16 @@ class AddMissingReportActivity : AppCompatActivity(), OnMapReadyCallback {
         //setContentView(R.layout.activity_add_missing_report)
 
         //------spinner------
-        spinner = findViewById(R.id.spinner)
-        val options = arrayOf("Option 1", "Option 2", "Option 3")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, options)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
 
-        //------mapView------
-        mapView = findViewById(R.id.mapView)
-        mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync(this)
+        //spinner = findViewById(R.id.spinner)
+        //val options = arrayOf("Option 1", "Option 2", "Option 3")
+        //val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, options)
+        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        //spinner.adapter = adapter
+        animalColorSpinner()
 
+
+        //-----mapa-----
         val buttonPickLocation = findViewById<Button>(R.id.buttonPickLocation)
         buttonPickLocation.setOnClickListener{
             showMapDialog()
@@ -102,6 +104,7 @@ class AddMissingReportActivity : AppCompatActivity(), OnMapReadyCallback {
         finish()
     }
 
+    //---------------------------BitMap---------------------------
     private fun compressBitmap(bitmap: Bitmap): ByteArray {
         val outputStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream)
@@ -144,22 +147,6 @@ class AddMissingReportActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    fun pickDate(view: View){
-        var formatDate = SimpleDateFormat( "dd MMMM YYYY", Locale.ROOT)
-        val getDate = Calendar.getInstance()
-
-        val datePicker = DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-            DatePickerDialog.OnDateSetListener { datePicker, i, i2, i3 ->
-                val selectDate = Calendar.getInstance()
-                selectDate.set(Calendar.YEAR, i)
-                selectDate.set(Calendar.MONTH, i2)
-                selectDate.set(Calendar.DAY_OF_MONTH, i3)
-                val date = formatDate.format(selectDate.time)
-                findViewById<EditText>(R.id.editTextDate).setText(date)
-            }, getDate.get(Calendar.YEAR), getDate.get(Calendar.MONTH), getDate.get(Calendar.DAY_OF_MONTH))
-        datePicker.show()
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         try {
@@ -176,59 +163,98 @@ class AddMissingReportActivity : AppCompatActivity(), OnMapReadyCallback {
             bilding.textViewAddPhoto.text = ""}
     }
 
-    override fun onMapReady(map: GoogleMap) {
-        googleMap = map
+    //---------------------------Date---------------------------
+    fun pickDate(view: View){
+        var formatDate = SimpleDateFormat( "dd MMMM YYYY", Locale.ROOT)
+        val getDate = Calendar.getInstance()
 
-        googleMap.setOnMapClickListener { latLng ->
-            googleMap.addMarker(MarkerOptions().position(latLng))
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
-        }
+        val datePicker = DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+            DatePickerDialog.OnDateSetListener { datePicker, i, i2, i3 ->
+                val selectDate = Calendar.getInstance()
+                selectDate.set(Calendar.YEAR, i)
+                selectDate.set(Calendar.MONTH, i2)
+                selectDate.set(Calendar.DAY_OF_MONTH, i3)
+                val date = formatDate.format(selectDate.time)
+                findViewById<EditText>(R.id.editTextDate).setText(date)
+            }, getDate.get(Calendar.YEAR), getDate.get(Calendar.MONTH), getDate.get(Calendar.DAY_OF_MONTH))
+        datePicker.show()
     }
+
+
+    //----------------------------Map----------------------------
+
 
     private fun showMapDialog() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_map, null)
         val dialogBuilder = AlertDialog.Builder(this)
             .setTitle("Wybierz punkt")
             .setView(dialogView)
-            .setPositiveButton("OK"){ dialog, _ ->
+            .setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
             }
             .setNegativeButton("Anuluj") { dialog, _ ->
                 dialog.dismiss()
             }
-        val dialog = dialogBuilder.create();
+
+        val dialog = dialogBuilder.create()
         dialog.show()
 
-        var dialogMapView = dialogView.findViewById<MapView>(R.id.dialogMapView)
-        dialogMapView.onCreate(dialog.onSaveInstanceState())
-        dialogMapView.onResume()
-        dialogMapView.getMapAsync { map ->
+        dialogMapView = dialogView.findViewById<MapView>(R.id.dialogMapView)
+        dialogMapView?.onCreate(dialog.onSaveInstanceState())
+        dialogMapView?.onResume()
+        dialogMapView?.getMapAsync { map ->
             googleMap = map
             googleMap.setOnMapClickListener { latLng ->
+                // Tutaj możesz przetworzyć długość i szerokość geograficzną
+
                 googleMap.addMarker(MarkerOptions().position(latLng))
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
+                dialogMapView?.onResume()
             }
         }
-
     }
+    //----------------------Animal Color Spinner----------------------
+    fun animalColorSpinner(){
+        val serverCommunicator = ServerCommunicator()
+        val animalColors = serverCommunicator.getAll("animal-colors", AnimalColorDTO::class.java)
+        val spinner: Spinner = findViewById(R.id.spinner)
+
+        val adapter = AnimalColorAdapter(this, android.R.layout.simple_spinner_item, animalColors)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        spinner.adapter = adapter
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedColor = parent.getItemAtPosition(position) as AnimalColorDTO
+                // Wykonaj akcję na wybranym kolorze
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Obsłuż brak wybranego koloru
+            }
+        }
+    }
+
+
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        dialogMapView?.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        dialogMapView?.onPause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView.onDestroy()
+        dialogMapView?.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView.onLowMemory()
+        dialogMapView?.onLowMemory()
     }
 
 }

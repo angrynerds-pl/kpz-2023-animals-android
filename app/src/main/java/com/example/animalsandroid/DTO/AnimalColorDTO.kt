@@ -7,4 +7,6 @@ data class AnimalColorDTO(
     val id : Int,
     @JsonProperty
     val name : String
-)
+) {
+    constructor() : this(0, "")
+}
