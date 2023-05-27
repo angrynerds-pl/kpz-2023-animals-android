@@ -9,4 +9,6 @@ data class BreedDTO(
     val name : String,
     @JsonProperty
     val type : TypeDTO
-)
+) {
+    constructor() : this(0, "", TypeDTO())
+}

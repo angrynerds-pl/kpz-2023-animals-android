@@ -1,5 +1,6 @@
 package com.example.animalsandroid.serverCommunication.controllers
 
+import com.example.animalsandroid.DTO.BreedDTO
 import com.example.animalsandroid.DTO.TypeDTO
 import com.example.animalsandroid.serverCommunication.ServerCommunicator
 
@@ -16,5 +17,10 @@ class TypeController {
 
         val serverCommunicator = ServerCommunicator ()
         serverCommunicator.post("types", TypeDTO::class.java, typeDTO)
+    }
+
+    fun getBreedsForType(id : Int) : List<BreedDTO>{
+        val serverCommunicator = ServerCommunicator()
+        return serverCommunicator.getAll("types/$id/breeds", BreedDTO::class.java)
     }
 }

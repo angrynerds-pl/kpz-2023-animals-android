@@ -52,6 +52,12 @@ class AddSeenReportActivity : AppCompatActivity() {
     private lateinit var googleMap : GoogleMap
     private var dialogMapView : MapView? = null
 
+    private lateinit var selectedBreed : BreedDTO
+    private lateinit var selectedType : TypeDTO
+    private lateinit var selectedColor : AnimalColorDTO
+    private lateinit var selectedSex : AnimalSex
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bilding = ActivityAddSeenReportBinding.inflate(layoutInflater)
@@ -60,7 +66,6 @@ class AddSeenReportActivity : AppCompatActivity() {
 
         //------spinner------
         animalTypeSpinner()
-        //animalBreedSpinner()
         animalColorSpinner()
         animalSexSpinner()
 
@@ -228,7 +233,7 @@ class AddSeenReportActivity : AppCompatActivity() {
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                val selectedColor = parent.getItemAtPosition(position) as AnimalColorDTO
+                selectedColor = parent.getItemAtPosition(position) as AnimalColorDTO
                 // Wykonaj akcję na wybranym kolorze
             }
 
@@ -238,10 +243,10 @@ class AddSeenReportActivity : AppCompatActivity() {
         }
     }
 
-    //trzeba poprawić zeby były w zależności od wybranego typu
     private fun animalBreedSpinner(){
-        val breedController = BreedController()
-        val animalBreeds = breedController.getAllBreeds()
+        val typeController = TypeController()
+
+        val animalBreeds = typeController.getBreedsForType(selectedType.id)
         val spinner: Spinner = findViewById(R.id.breedSpinner)
 
         val adapter = AnimalBreedAdapter(this, android.R.layout.simple_spinner_item, animalBreeds)
@@ -251,7 +256,7 @@ class AddSeenReportActivity : AppCompatActivity() {
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                val selectedBreed = parent.getItemAtPosition(position) as BreedDTO
+                selectedBreed = parent.getItemAtPosition(position) as BreedDTO
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -271,7 +276,8 @@ class AddSeenReportActivity : AppCompatActivity() {
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                val selectedType = parent.getItemAtPosition(position) as TypeDTO
+                selectedType = parent.getItemAtPosition(position) as TypeDTO
+                animalBreedSpinner()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -290,7 +296,7 @@ class AddSeenReportActivity : AppCompatActivity() {
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                val selectedAnimalType = parent.getItemAtPosition(position) as AnimalSex
+                selectedSex = parent.getItemAtPosition(position) as AnimalSex
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
