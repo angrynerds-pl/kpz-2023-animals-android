@@ -19,18 +19,16 @@ import androidx.core.content.ContextCompat
 import com.example.animalsandroid.databinding.ActivityAddMissingReportBinding
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
-import com.google.android.gms.maps.OnMapReadyCallback
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import androidx.appcompat.app.AlertDialog
 import com.example.animalsandroid.DTO.AnimalColorDTO
 import com.example.animalsandroid.serverCommunication.ServerCommunicator
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import java.util.*
 
-class AddMissingReportActivity : AppCompatActivity(){
+class AddLostReportActivity : AppCompatActivity(){
 
     private lateinit var name : String
     private lateinit var locality : String
@@ -40,8 +38,6 @@ class AddMissingReportActivity : AppCompatActivity(){
 
     private lateinit var pickedBitMap: Bitmap
     private lateinit var bilding: ActivityAddMissingReportBinding
-    //private lateinit var spinner: Spinner
-    private lateinit var mapView : MapView
     private lateinit var googleMap : GoogleMap
     private var dialogMapView : MapView? = null
 
@@ -52,14 +48,7 @@ class AddMissingReportActivity : AppCompatActivity(){
         //setContentView(R.layout.activity_add_missing_report)
 
         //------spinner------
-
-        //spinner = findViewById(R.id.spinner)
-        //val options = arrayOf("Option 1", "Option 2", "Option 3")
-        //val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, options)
-        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        //spinner.adapter = adapter
         animalColorSpinner()
-
 
         //-----mapa-----
         val buttonPickLocation = findViewById<Button>(R.id.buttonPickLocation)

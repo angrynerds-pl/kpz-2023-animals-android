@@ -7,7 +7,7 @@ data class LostReportRequestDTO(
     @JsonProperty
     val lostDate : String,
     @JsonProperty
-    val coordinateDTO: CoordinateDTO,
+    val coordinate: CoordinateDTO,
     @JsonProperty
     val description : String,
     @JsonProperty

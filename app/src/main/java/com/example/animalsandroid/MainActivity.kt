@@ -10,11 +10,9 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.example.animalsandroid.DTO.AnimalColorDTO
-import com.example.animalsandroid.serverCommunication.PostRequest
 import com.example.animalsandroid.serverCommunication.ServerCommunicator
 import com.example.animalsandroid.trainingListAcivity.TrainingListActivity
 import com.example.animalsandroid.veterinaryMapActivity.VeterinaryMapActivity
-import com.fasterxml.jackson.databind.ObjectMapper
 import okhttp3.*
 
 class MainActivity : AppCompatActivity() {
@@ -42,15 +40,15 @@ class MainActivity : AppCompatActivity() {
         //Picasso.get().load("https://kpz-storage.s3.amazonaws.com/2023-05-19T22%3A32%3A33.402560_Karakal.jpg").into(x)
         //testHttp()
 
-        //val postRequest = PostRequest()
-        //postRequest.postAnimalColor(5,"fioletowy")
+        //val animalColorController = AnimalColorController()
+        //animalColorController.postAnimalColor("fioletowy")
 
-        val serverCommunicator = ServerCommunicator()
-        var colorList = serverCommunicator.getAll("animal-colors", AnimalColorDTO::class.java)
-
-        colorList.forEach { color ->
-            println("ID: ${color.id}, Color: ${color.name}")
-        }
+//        val serverCommunicator = ServerCommunicator()
+//        var colorList = serverCommunicator.getAll("animal-colors", AnimalColorDTO::class.java)
+//
+//        colorList.forEach { color ->
+//            println("ID: ${color.id}, Color: ${color.name}")
+//        }
     }
 
 
@@ -97,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             toast.show()
         }
         else {
-            val intent = Intent(this, AddMissingReportActivity::class.java)
+            val intent = Intent(this, AddLostReportActivity::class.java)
             startActivityForResult(intent, 1)
         }
     }
@@ -108,7 +106,7 @@ class MainActivity : AppCompatActivity() {
             toast.show()
         }
         else {
-            val intent = Intent(this, AddFoundReportActivity::class.java)
+            val intent = Intent(this, AddSeenReportActivity::class.java)
             startActivity(intent)
         }
     }

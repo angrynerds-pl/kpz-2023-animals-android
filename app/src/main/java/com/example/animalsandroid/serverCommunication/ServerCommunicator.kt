@@ -10,8 +10,11 @@ import java.io.IOException
 class ServerCommunicator() {
     private val serverAddress = "http://10.0.2.2:8080/"
 
-    fun post(endpoint : String, json : String) : Boolean {
+    fun <E> post(endpoint : String, itemType: Class<E>, item: E) : Boolean {
+        val objectMapper = ObjectMapper()
+        val json = objectMapper.writeValueAsString(itemType)
         val requestBody = json.toRequestBody("application/json".toMediaType())
+
         val request = Request.Builder()
             .url(serverAddress + endpoint)
             .post(requestBody)
@@ -27,6 +30,7 @@ class ServerCommunicator() {
 
         return callRequest(request)
     }
+
 
     private fun callRequest(request: Request) : String?{
         val client = OkHttpClient()

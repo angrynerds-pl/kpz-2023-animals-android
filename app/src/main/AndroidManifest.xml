@@ -43,13 +43,13 @@
             android:name=".veterinaryMapActivity.VeterinaryMapActivity"
             android:exported="false" />
         <activity
-            android:name=".AddFoundReportActivity"
+            android:name=".AddSeenReportActivity"
             android:exported="false" />
         <activity
             android:name=".ListItemActivity"
             android:exported="false" />
         <activity
-            android:name=".AddMissingReportActivity"
+            android:name=".AddLostReportActivity"
             android:exported="false" />
         <activity
             android:name=".AnimalsList"

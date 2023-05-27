@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 data class SeenReportRequestDTO(
     @JsonProperty
-    val lastDate : String,
+    val lostDate : String,
     @JsonProperty
     val coordinate: CoordinateDTO,
     @JsonProperty
@@ -15,5 +15,5 @@ data class SeenReportRequestDTO(
     @JsonProperty
     val animalId : Int,
     @JsonProperty
-    val animalRequestDTO: AnimalRequestDTO
+    val animalRequest: AnimalRequestDTO
 )

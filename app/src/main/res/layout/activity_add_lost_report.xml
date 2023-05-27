@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".AddFoundReportActivity">
+            tools:context=".AddLostReportActivity">
 
         <EditText
                 android:id="@+id/editTextSpecies"
@@ -18,19 +18,18 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="60dp"
                 android:layout_marginRight="20dp"
-                android:hint="Gatunek"
+                android:hint="Imię"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <EditText
                 android:id="@+id/editTextLocality"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="188dp"
+                android:layout_height="47dp"
                 android:hint="Miejscowość"
                 app:layout_constraintTop_toBottomOf="@+id/editTextDesc"
                 android:layout_marginTop="32dp"
-                app:layout_constraintEnd_toEndOf="@+id/editTextDesc"
                 app:layout_constraintStart_toStartOf="@+id/editTextDesc" />
 
         <EditText
@@ -96,10 +95,11 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
-                app:layout_constraintTop_toBottomOf="@+id/editTextSpecies"
-                android:layout_marginTop="32dp"
                 app:layout_constraintEnd_toEndOf="@+id/editTextSpecies"
-                app:layout_constraintStart_toStartOf="@+id/editTextSpecies" />
+                app:layout_constraintStart_toStartOf="@+id/editTextSpecies"
+                app:layout_constraintTop_toBottomOf="@+id/spinner"
+                android:layout_marginTop="32dp"
+                app:layout_constraintHorizontal_bias="0.0" />
 
         <Button
                 android:text="Wybierz datę"
@@ -108,7 +108,7 @@
                 android:id="@+id/buttonPickDate"
                 android:onClick="pickDate"
                 app:layout_constraintBaseline_toBaselineOf="@+id/editTextDate"
-                app:layout_constraintEnd_toEndOf="@+id/editTextLocality" />
+                app:layout_constraintEnd_toEndOf="@+id/buttonPickLocation" />
 
         <EditText
                 android:layout_width="0dp"
@@ -120,7 +120,24 @@
                 app:layout_constraintStart_toStartOf="@+id/editTextDate"
                 app:layout_constraintEnd_toEndOf="@+id/buttonPickDate"
                 android:layout_marginTop="32dp"
-                android:text="Numer telefonu" />
+                android:hint="Numer telefonu" />
+
+        <Spinner
+                android:layout_width="370dp"
+                android:layout_height="45dp"
+                android:id="@+id/spinner"
+                app:layout_constraintTop_toBottomOf="@+id/editTextSpecies"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toEndOf="@+id/editTextSpecies"
+                app:layout_constraintStart_toStartOf="@+id/editTextSpecies" />
+
+        <Button
+                android:text="Wybierz Lokalizację"
+                android:layout_width="156dp"
+                android:layout_height="67dp"
+                android:id="@+id/buttonPickLocation"
+                app:layout_constraintEnd_toEndOf="@+id/editTextDesc"
+                app:layout_constraintBaseline_toBaselineOf="@+id/editTextLocality" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
