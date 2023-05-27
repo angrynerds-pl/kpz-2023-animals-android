@@ -16,4 +16,6 @@ data class AnimalRequestDTO(
     val animalColorId : Int,
     @JsonProperty
     val breedId : Int
-)
+) {
+    constructor() : this( "","", AnimalSex.NIEZNANA, 0, 0 ,0)
+}

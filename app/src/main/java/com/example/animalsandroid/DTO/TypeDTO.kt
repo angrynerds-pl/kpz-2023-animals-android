@@ -7,4 +7,6 @@ data class TypeDTO(
     val id : Int,
     @JsonProperty
     val name : String
-)
+) {
+    constructor() : this(0, "")
+}

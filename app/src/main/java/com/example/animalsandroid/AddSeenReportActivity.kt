@@ -18,7 +18,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.animalsandroid.databinding.ActivityAddFoundReportBinding
+import com.example.animalsandroid.databinding.ActivityAddSeenReportBinding
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import java.io.ByteArrayOutputStream
@@ -40,13 +40,13 @@ class AddSeenReportActivity : AppCompatActivity() {
     private lateinit var description : String
 
     private lateinit var pickedBitMap: Bitmap
-    private lateinit var bilding: ActivityAddFoundReportBinding
+    private lateinit var bilding: ActivityAddSeenReportBinding
     private lateinit var googleMap : GoogleMap
     private var dialogMapView : MapView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bilding = ActivityAddFoundReportBinding.inflate(layoutInflater)
+        bilding = ActivityAddSeenReportBinding.inflate(layoutInflater)
         setContentView(bilding.root)
         //setContentView(R.layout.activity_add_found_report)
 

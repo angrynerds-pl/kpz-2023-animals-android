@@ -16,7 +16,7 @@ import android.view.View
 import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.animalsandroid.databinding.ActivityAddMissingReportBinding
+import com.example.animalsandroid.databinding.ActivityAddLostReportBinding
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import java.io.ByteArrayOutputStream
@@ -37,13 +37,13 @@ class AddLostReportActivity : AppCompatActivity(){
     private lateinit var description : String
 
     private lateinit var pickedBitMap: Bitmap
-    private lateinit var bilding: ActivityAddMissingReportBinding
+    private lateinit var bilding: ActivityAddLostReportBinding
     private lateinit var googleMap : GoogleMap
     private var dialogMapView : MapView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bilding = ActivityAddMissingReportBinding.inflate(layoutInflater)
+        bilding = ActivityAddLostReportBinding.inflate(layoutInflater)
         setContentView(bilding.root)
         //setContentView(R.layout.activity_add_missing_report)
 

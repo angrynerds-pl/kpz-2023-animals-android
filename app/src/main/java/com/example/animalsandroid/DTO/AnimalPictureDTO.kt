@@ -9,4 +9,6 @@ data class AnimalPictureDTO(
     val contentType : String,
     @JsonProperty
     val url : String
-)
+) {
+    constructor() : this(0, "","")
+}

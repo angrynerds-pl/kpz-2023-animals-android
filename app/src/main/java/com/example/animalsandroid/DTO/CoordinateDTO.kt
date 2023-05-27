@@ -7,4 +7,6 @@ data class CoordinateDTO(
     val x : Double,
     @JsonProperty
     val y : Double
-)
+) {
+    constructor() : this(0.0, 0.0)
+}

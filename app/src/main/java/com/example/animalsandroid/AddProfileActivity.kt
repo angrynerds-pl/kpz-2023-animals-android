@@ -15,7 +15,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.animalsandroid.databinding.ActivityAddMissingReportBinding
+import com.example.animalsandroid.databinding.ActivityAddLostReportBinding
 import com.example.animalsandroid.databinding.ActivityAddProfileBinding
 import java.io.ByteArrayOutputStream
 

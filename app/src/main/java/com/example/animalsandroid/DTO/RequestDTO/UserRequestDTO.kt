@@ -14,4 +14,6 @@ data class UserRequestDTO(
     val password : String,
     @JsonProperty
     val idRole : Int
-)
+) {
+    constructor() : this("", "", "", "", "",  0)
+}

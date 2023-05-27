@@ -2,7 +2,7 @@ package com.example.animalsandroid.DTO.ResponseDTO
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class UserRedponseDTO(
+data class UserResponseDTO(
     @JsonProperty
     val id : Int,
     @JsonProperty
