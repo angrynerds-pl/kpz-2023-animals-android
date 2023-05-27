@@ -26,7 +26,14 @@ import java.text.SimpleDateFormat
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.example.animalsandroid.DTO.AnimalColorDTO
-import com.example.animalsandroid.serverCommunication.ServerCommunicator
+import com.example.animalsandroid.DTO.BreedDTO
+import com.example.animalsandroid.DTO.TypeDTO
+import com.example.animalsandroid.adapters.AnimalBreedAdapter
+import com.example.animalsandroid.adapters.AnimalColorAdapter
+import com.example.animalsandroid.adapters.AnimalTypeAdapter
+import com.example.animalsandroid.serverCommunication.controllers.AnimalColorController
+import com.example.animalsandroid.serverCommunication.controllers.BreedController
+import com.example.animalsandroid.serverCommunication.controllers.TypeController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.MarkerOptions
 import java.util.*
@@ -52,6 +59,8 @@ class AddSeenReportActivity : AppCompatActivity() {
 
         //------spinner------
         animalColorSpinner()
+        animalTypeSpinner()
+        //animalBreedSpinner()
 
         //-----mapa-----
         val buttonPickLocation = findViewById<Button>(R.id.buttonPickLocation)
@@ -204,11 +213,11 @@ class AddSeenReportActivity : AppCompatActivity() {
             }
         }
     }
-    //----------------------Animal Color Spinner----------------------
+    //-------------------------Spinners-------------------------
     private fun animalColorSpinner(){
-        val serverCommunicator = ServerCommunicator()
-        val animalColors = serverCommunicator.getAll("animal-colors", AnimalColorDTO::class.java)
-        val spinner: Spinner = findViewById(R.id.spinner)
+        val animalColorController = AnimalColorController()
+        val animalColors = animalColorController.getAllAnimalColors()
+        val spinner: Spinner = findViewById(R.id.animalColorSpinner)
 
         val adapter = AnimalColorAdapter(this, android.R.layout.simple_spinner_item, animalColors)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -226,6 +235,47 @@ class AddSeenReportActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun animalBreedSpinner(){
+        val breedController = BreedController()
+        val animalBreeds = breedController.getAllBreeds()
+        val spinner: Spinner = findViewById(R.id.breedSpinner)
+
+        val adapter = AnimalBreedAdapter(this, android.R.layout.simple_spinner_item, animalBreeds)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        spinner.adapter = adapter
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedBreed = parent.getItemAtPosition(position) as BreedDTO
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+            }
+        }
+    }
+
+    private fun animalTypeSpinner(){
+        val typeController = TypeController()
+        val animalTypes = typeController.getAllTypes()
+        val spinner: Spinner = findViewById(R.id.typeSpinner)
+
+        val adapter = AnimalTypeAdapter(this, android.R.layout.simple_spinner_item, animalTypes)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        spinner.adapter = adapter
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedType = parent.getItemAtPosition(position) as TypeDTO
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+            }
+        }
+    }
+
 
 
     override fun onResume() {

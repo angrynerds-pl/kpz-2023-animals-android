@@ -1,15 +1,14 @@
-package com.example.animalsandroid
+package com.example.animalsandroid.adapters
 
 import android.content.Context
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import com.example.animalsandroid.DTO.AnimalColorDTO
+import com.example.animalsandroid.DTO.TypeDTO
 
-class AnimalColorAdapter(context: Context, resource: Int, objects: List<AnimalColorDTO>) :
-    ArrayAdapter<AnimalColorDTO>(context, resource, objects) {
+class AnimalTypeAdapter(context: Context, resource: Int, objects: List<TypeDTO>) :
+    ArrayAdapter<TypeDTO>(context, resource, objects) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = super.getView(position, convertView, parent)
@@ -26,4 +25,5 @@ class AnimalColorAdapter(context: Context, resource: Int, objects: List<AnimalCo
         textView.text = color?.name
         return view
     }
+
 }

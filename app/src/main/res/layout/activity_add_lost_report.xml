@@ -97,7 +97,7 @@
                 android:inputType="textMultiLine"
                 app:layout_constraintEnd_toEndOf="@+id/editTextSpecies"
                 app:layout_constraintStart_toStartOf="@+id/editTextSpecies"
-                app:layout_constraintTop_toBottomOf="@+id/spinner"
+                app:layout_constraintTop_toBottomOf="@+id/animalColorSpinner"
                 android:layout_marginTop="32dp"
                 app:layout_constraintHorizontal_bias="0.0" />
 
@@ -125,11 +125,12 @@
         <Spinner
                 android:layout_width="370dp"
                 android:layout_height="45dp"
-                android:id="@+id/spinner"
+                android:id="@+id/animalColorSpinner"
                 app:layout_constraintTop_toBottomOf="@+id/editTextSpecies"
                 android:layout_marginTop="32dp"
                 app:layout_constraintEnd_toEndOf="@+id/editTextSpecies"
-                app:layout_constraintStart_toStartOf="@+id/editTextSpecies" />
+                app:layout_constraintStart_toStartOf="@+id/editTextSpecies"
+                android:spinnerStyle="@android:style/Widget.Spinner"/>
 
         <Button
                 android:text="Wybierz Lokalizację"

@@ -23,7 +23,14 @@ import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import androidx.appcompat.app.AlertDialog
 import com.example.animalsandroid.DTO.AnimalColorDTO
-import com.example.animalsandroid.serverCommunication.ServerCommunicator
+import com.example.animalsandroid.DTO.BreedDTO
+import com.example.animalsandroid.DTO.TypeDTO
+import com.example.animalsandroid.adapters.AnimalBreedAdapter
+import com.example.animalsandroid.adapters.AnimalColorAdapter
+import com.example.animalsandroid.adapters.AnimalTypeAdapter
+import com.example.animalsandroid.serverCommunication.controllers.AnimalColorController
+import com.example.animalsandroid.serverCommunication.controllers.BreedController
+import com.example.animalsandroid.serverCommunication.controllers.TypeController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.MarkerOptions
 import java.util.*
@@ -47,10 +54,10 @@ class AddLostReportActivity : AppCompatActivity(){
         setContentView(bilding.root)
         //setContentView(R.layout.activity_add_missing_report)
 
-        //------spinner------
+        //------spinners------
         animalColorSpinner()
 
-        //-----mapa-----
+        //------map------
         val buttonPickLocation = findViewById<Button>(R.id.buttonPickLocation)
         buttonPickLocation.setOnClickListener{
             showMapDialog()
@@ -202,11 +209,12 @@ class AddLostReportActivity : AppCompatActivity(){
             }
         }
     }
-    //----------------------Animal Color Spinner----------------------
-    fun animalColorSpinner(){
-        val serverCommunicator = ServerCommunicator()
-        val animalColors = serverCommunicator.getAll("animal-colors", AnimalColorDTO::class.java)
-        val spinner: Spinner = findViewById(R.id.spinner)
+    //---------------------------Spinners---------------------------
+
+    private fun animalColorSpinner(){
+        val animalColorController = AnimalColorController()
+        val animalColors = animalColorController.getAllAnimalColors()
+        val spinner: Spinner = findViewById(R.id.animalColorSpinner)
 
         val adapter = AnimalColorAdapter(this, android.R.layout.simple_spinner_item, animalColors)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
