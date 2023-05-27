@@ -11,29 +11,6 @@
             android:layout_height="match_parent"
             tools:context=".AddSeenReportActivity">
 
-        <EditText
-                android:id="@+id/editTextLocality"
-                android:layout_width="188dp"
-                android:layout_height="47dp"
-                android:hint="Miejscowość"
-                app:layout_constraintTop_toBottomOf="@+id/animalSexSpinner"
-                android:layout_marginTop="32dp"
-                app:layout_constraintStart_toStartOf="@+id/chooseAnimalSexTextView"
-                android:editable="false" />
-
-        <EditText
-                android:id="@+id/editTextDate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="Data"
-                android:inputType="date"
-                app:layout_constraintEnd_toStartOf="@+id/buttonPickDate"
-                android:layout_marginEnd="24dp"
-                app:layout_constraintTop_toBottomOf="@+id/editTextLocality"
-                app:layout_constraintStart_toStartOf="@+id/editTextLocality"
-                android:layout_marginTop="32dp"
-                android:editable="false" />
-
         <Button
                 android:id="@+id/buttonAccept"
                 android:layout_width="wrap_content"
@@ -85,19 +62,22 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
-                app:layout_constraintStart_toStartOf="@+id/editTextDate"
                 app:layout_constraintEnd_toEndOf="@+id/buttonPickDate"
-                app:layout_constraintTop_toBottomOf="@+id/editTextDate"
+                app:layout_constraintStart_toStartOf="@+id/dateTextView"
+                app:layout_constraintTop_toBottomOf="@+id/buttonPickDate"
                 android:layout_marginTop="32dp" />
 
         <Button
                 android:text="Wybierz datę"
-                android:layout_width="160dp"
+                android:layout_width="0dp"
                 android:layout_height="41dp"
                 android:id="@+id/buttonPickDate"
                 android:onClick="pickDate"
-                app:layout_constraintBaseline_toBaselineOf="@+id/editTextDate"
-                app:layout_constraintEnd_toEndOf="@+id/buttonPickLocation" />
+                app:layout_constraintEnd_toEndOf="@+id/buttonPickLocation"
+                app:layout_constraintStart_toEndOf="@+id/dateTextView"
+                app:layout_constraintTop_toBottomOf="@+id/buttonPickLocation"
+                android:layout_marginTop="32dp"
+                android:layout_marginStart="32dp" />
 
         <Spinner
                 android:layout_width="0dp"
@@ -110,11 +90,13 @@
 
         <Button
                 android:text="Wybierz Lokalizację"
-                android:layout_width="156dp"
-                android:layout_height="67dp"
+                android:layout_width="0dp"
+                android:layout_height="41dp"
                 android:id="@+id/buttonPickLocation"
-                app:layout_constraintBaseline_toBaselineOf="@+id/editTextLocality"
-                app:layout_constraintEnd_toEndOf="@+id/animalSexSpinner" />
+                app:layout_constraintEnd_toEndOf="@+id/animalSexSpinner"
+                app:layout_constraintTop_toBottomOf="@+id/animalSexSpinner"
+                android:layout_marginTop="32dp"
+                app:layout_constraintStart_toStartOf="@+id/animalSexSpinner" />
 
         <Spinner
                 android:layout_width="0dp"
@@ -187,6 +169,29 @@
                 android:layout_marginTop="60dp"
                 app:layout_constraintStart_toEndOf="@+id/chooseTypeTextView"
                 android:layout_marginStart="32dp" />
+
+        <CheckBox
+                android:text=" "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/localityCheckBox"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="@+id/chooseAnimalSexTextView"
+                app:layout_constraintTop_toTopOf="@+id/buttonPickLocation"
+                app:layout_constraintBottom_toBottomOf="@+id/buttonPickLocation"
+                android:clickable="false"
+                android:contextClickable="false" />
+
+        <TextView
+                android:text="Data nie wybrana"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:id="@+id/dateTextView"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/localityCheckBox"
+                app:layout_constraintTop_toTopOf="@+id/buttonPickDate"
+                app:layout_constraintBottom_toBottomOf="@+id/buttonPickDate"
+                android:textAlignment="viewStart" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

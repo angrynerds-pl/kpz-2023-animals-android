@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.example.animalsandroid.DTO.AnimalColorDTO
+import com.example.animalsandroid.DTO.AnimalSex
 import com.example.animalsandroid.DTO.BreedDTO
 import com.example.animalsandroid.DTO.TypeDTO
 import com.example.animalsandroid.adapters.AnimalBreedAdapter
@@ -58,9 +59,10 @@ class AddSeenReportActivity : AppCompatActivity() {
         //setContentView(R.layout.activity_add_found_report)
 
         //------spinner------
-        animalColorSpinner()
         animalTypeSpinner()
         //animalBreedSpinner()
+        animalColorSpinner()
+        animalSexSpinner()
 
         //-----mapa-----
         val buttonPickLocation = findViewById<Button>(R.id.buttonPickLocation)
@@ -236,6 +238,7 @@ class AddSeenReportActivity : AppCompatActivity() {
         }
     }
 
+    //trzeba poprawić zeby były w zależności od wybranego typu
     private fun animalBreedSpinner(){
         val breedController = BreedController()
         val animalBreeds = breedController.getAllBreeds()
@@ -269,6 +272,25 @@ class AddSeenReportActivity : AppCompatActivity() {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val selectedType = parent.getItemAtPosition(position) as TypeDTO
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+            }
+        }
+    }
+
+    private fun animalSexSpinner() {
+        val animalSex = AnimalSex.values()
+        val spinner: Spinner = findViewById(R.id.animalSexSpinner)
+
+        val adapter = ArrayAdapter<AnimalSex>(this, android.R.layout.simple_spinner_item, animalSex)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        spinner.adapter = adapter
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedAnimalType = parent.getItemAtPosition(position) as AnimalSex
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
