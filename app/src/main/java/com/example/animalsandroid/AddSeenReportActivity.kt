@@ -1,5 +1,6 @@
 package com.example.animalsandroid
 
+import android.Manifest
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -124,9 +125,9 @@ class AddSeenReportActivity : AppCompatActivity() {
     }
 
     fun pickedPhoto (view: View){
-        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
             != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
         }else{
             val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(galleryIntent, 2)
@@ -134,7 +135,7 @@ class AddSeenReportActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == 2 && resultCode == Activity.RESULT_OK && data != null ){
+        if(requestCode == 2 && resultCode == RESULT_OK && data != null ){
             var pickedPhoto: Uri = data.data!!
             pickedBitMap = if (Build.VERSION.SDK_INT >= 28){
                 ImageDecoder.decodeBitmap(ImageDecoder.createSource(this.contentResolver, pickedPhoto!!))
