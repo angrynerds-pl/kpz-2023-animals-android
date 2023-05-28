@@ -2,6 +2,8 @@ package com.example.animalsandroid.serverCommunication
 
 import okhttp3.MediaType.Companion.toMediaType
 import com.fasterxml.jackson.databind.ObjectMapper
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import okhttp3.*
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONArray
@@ -24,12 +26,25 @@ class ServerCommunicator() {
         return callRequest(request) != null
     }
 
-    fun get(endpoint: String) : String?{
+    fun <T> get(endpoint: String, itemType: Class<T>): T {
+        val client = OkHttpClient()
         val request = Request.Builder()
             .url(serverAddress + endpoint)
             .build()
 
-        return callRequest(request)
+        val objectMapper = ObjectMapper()
+
+        val response = client.newCall(request).execute()
+        if (response.isSuccessful) {
+            val responseBody = response.body?.string()
+            try {
+                return objectMapper.readValue(responseBody, itemType)
+            } catch (e: IOException) {
+                throw e
+            }
+        } else {
+            throw Exception("Request unsuccessful: ${response.code}")
+        }
     }
 
 

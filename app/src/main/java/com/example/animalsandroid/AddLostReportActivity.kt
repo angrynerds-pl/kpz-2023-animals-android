@@ -22,31 +22,29 @@ import com.google.android.gms.maps.MapView
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import androidx.appcompat.app.AlertDialog
-import com.example.animalsandroid.DTO.AnimalColorDTO
-import com.example.animalsandroid.DTO.BreedDTO
-import com.example.animalsandroid.DTO.TypeDTO
+import com.example.animalsandroid.DTO.*
+import com.example.animalsandroid.DTO.RequestDTO.AnimalRequestDTO
+import com.example.animalsandroid.DTO.ResponseDTO.AnimalResponseDTO
+import com.example.animalsandroid.adapters.AnimalAdapter
 import com.example.animalsandroid.adapters.AnimalBreedAdapter
 import com.example.animalsandroid.adapters.AnimalColorAdapter
 import com.example.animalsandroid.adapters.AnimalTypeAdapter
-import com.example.animalsandroid.serverCommunication.controllers.AnimalColorController
-import com.example.animalsandroid.serverCommunication.controllers.BreedController
-import com.example.animalsandroid.serverCommunication.controllers.TypeController
+import com.example.animalsandroid.serverCommunication.controllers.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.MarkerOptions
 import java.util.*
 
 class AddLostReportActivity : AppCompatActivity(){
 
-    private lateinit var name : String
-    private lateinit var locality : String
-    private lateinit var date : String
-    private lateinit var concatText : String
-    private lateinit var description : String
-
     private lateinit var pickedBitMap: Bitmap
     private lateinit var bilding: ActivityAddLostReportBinding
     private lateinit var googleMap : GoogleMap
     private var dialogMapView : MapView? = null
+
+    private lateinit var selectedAnimal : AnimalResponseDTO
+    private lateinit var selectedCoordinate: CoordinateDTO
+    private lateinit var selectedDate : String
+    private lateinit var description : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +53,7 @@ class AddLostReportActivity : AppCompatActivity(){
         //setContentView(R.layout.activity_add_missing_report)
 
         //------spinners------
-        animalColorSpinner()
+        animalSpinner()
 
         //------map------
         val buttonPickLocation = findViewById<Button>(R.id.buttonPickLocation)
@@ -73,7 +71,8 @@ class AddLostReportActivity : AppCompatActivity(){
     fun displayToastMsg(v: View){
 
         getData()
-        if(name == "" || locality == "" || date == "" || !::pickedBitMap.isInitialized) {
+        if(!::pickedBitMap.isInitialized || !::selectedAnimal.isInitialized || !::selectedCoordinate.isInitialized
+            || !::selectedDate.isInitialized || description == "") {
             toastMsg("Nie podano wszystkich danych")
         }
         else {
@@ -83,16 +82,19 @@ class AddLostReportActivity : AppCompatActivity(){
     }
 
     private fun getData() {
-        name = findViewById<EditText>(R.id.editTextSpecies).text.toString()
-        locality = findViewById<EditText>(R.id.editTextLocality).text.toString()
-        date = findViewById<EditText>(R.id.editTextDate).text.toString()
-        concatText = name.plus("\n").plus(locality).plus("\n").plus(date)
         description = findViewById<EditText>(R.id.editTextDesc).text.toString()
     }
 
     private fun sendData(){
+
+        val lostReportController = LostReportController()
+        lostReportController.postLostReport(lostDate = selectedDate, coordinate = selectedCoordinate, description = description,
+            animalId = selectedAnimal.id, reportStatusId = 1)
+
+        //userId jest hardcodowane + trzeba jeszcze dodać wysyłanie zdjęcia
+
         val intent = Intent()
-        intent.putExtra("EXTRA_STRING", concatText)
+        intent.putExtra("EXTRA_STRING", "x")
         intent.putExtra("EXTRA_BOOLEAN", true)
         intent.putExtra("EXTRA_DESC", description)
         intent.putExtra("EXTRA_JPEG", compressBitmap(pickedBitMap))
@@ -161,7 +163,7 @@ class AddLostReportActivity : AppCompatActivity(){
 
     //---------------------------Date---------------------------
     fun pickDate(view: View){
-        var formatDate = SimpleDateFormat( "dd MMMM YYYY", Locale.ROOT)
+        var formatDate = SimpleDateFormat( "yyyy-MM-dd", Locale.ROOT)
         val getDate = Calendar.getInstance()
 
         val datePicker = DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,
@@ -170,28 +172,19 @@ class AddLostReportActivity : AppCompatActivity(){
                 selectDate.set(Calendar.YEAR, i)
                 selectDate.set(Calendar.MONTH, i2)
                 selectDate.set(Calendar.DAY_OF_MONTH, i3)
-                val date = formatDate.format(selectDate.time)
-                findViewById<EditText>(R.id.editTextDate).setText(date)
+
+                selectedDate = formatDate.format(selectDate.time)
+                val dayTextView = findViewById<TextView>(R.id.dateTextView)
+                dayTextView.text = selectedDate
             }, getDate.get(Calendar.YEAR), getDate.get(Calendar.MONTH), getDate.get(Calendar.DAY_OF_MONTH))
         datePicker.show()
     }
 
 
     //----------------------------Map----------------------------
-
-
     private fun showMapDialog() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_map, null)
-        val dialogBuilder = AlertDialog.Builder(this)
-            .setTitle("Wybierz punkt")
-            .setView(dialogView)
-            .setPositiveButton("OK") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .setNegativeButton("Anuluj") { dialog, _ ->
-                dialog.dismiss()
-            }
-
+        val dialogBuilder = createDialogBuilder().setView(dialogView)
         val dialog = dialogBuilder.create()
         dialog.show()
 
@@ -200,35 +193,57 @@ class AddLostReportActivity : AppCompatActivity(){
         dialogMapView?.onResume()
         dialogMapView?.getMapAsync { map ->
             googleMap = map
-            googleMap.setOnMapClickListener { latLng ->
-                // Tutaj możesz przetworzyć długość i szerokość geograficzną
-
-                googleMap.addMarker(MarkerOptions().position(latLng))
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
-                dialogMapView?.onResume()
-            }
+            setupMap()
         }
     }
-    //---------------------------Spinners---------------------------
 
-    private fun animalColorSpinner(){
-        val animalColorController = AnimalColorController()
-        val animalColors = animalColorController.getAllAnimalColors()
-        val spinner: Spinner = findViewById(R.id.animalColorSpinner)
+    private fun createDialogBuilder(): AlertDialog.Builder {
+        return AlertDialog.Builder(this)
+            .setTitle("Wybierz punkt")
+            .setPositiveButton("OK") { dialog, _ ->
+                if (::selectedCoordinate.isInitialized) {
+                    dialog.dismiss()
+                } else {
+                    Toast.makeText(this, "Wybierz punkt na mapie", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton("Anuluj") { dialog, _ ->
+                dialog.dismiss()
+            }
+    }
 
-        val adapter = AnimalColorAdapter(this, android.R.layout.simple_spinner_item, animalColors)
+    private fun setupMap() {
+        googleMap.setOnMapClickListener { latLng ->
+            googleMap.clear()
+            selectedCoordinate = CoordinateDTO(latLng.latitude, latLng.longitude)
+
+            googleMap.addMarker(MarkerOptions().position(latLng))
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+            dialogMapView?.onResume()
+
+            val checkBox = findViewById<CheckBox>(R.id.localityCheckBox)
+            checkBox.isChecked = true
+        }
+    }
+
+
+    //---------------------------Spinner---------------------------
+    private fun animalSpinner(){
+        val userController = UserController()
+        val userAnimals = userController.getUserAnimals(1)
+        val spinner: Spinner = findViewById(R.id.animalSpinner)
+
+        val adapter = AnimalAdapter(this, android.R.layout.simple_spinner_item, userAnimals)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         spinner.adapter = adapter
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                val selectedColor = parent.getItemAtPosition(position) as AnimalColorDTO
-                // Wykonaj akcję na wybranym kolorze
+                selectedAnimal = parent.getItemAtPosition(position) as AnimalResponseDTO
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                // Obsłuż brak wybranego koloru
             }
         }
     }

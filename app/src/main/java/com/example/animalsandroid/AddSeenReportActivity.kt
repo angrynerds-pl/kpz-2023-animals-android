@@ -230,7 +230,7 @@ class AddSeenReportActivity : AppCompatActivity() {
             selectedCoordinate = CoordinateDTO(latLng.latitude, latLng.longitude)
 
             googleMap.addMarker(MarkerOptions().position(latLng))
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
             dialogMapView?.onResume()
 
             val checkBox = findViewById<CheckBox>(R.id.localityCheckBox)

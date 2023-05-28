@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         var policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
+        logged = 1
         //val x = findViewById<ImageView>(R.id.imageViewLogo)
         //Picasso.get().load("https://kpz-storage.s3.amazonaws.com/2023-05-19T22%3A32%3A33.402560_Karakal.jpg").into(x)
         //testHttp()
@@ -56,17 +57,6 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.app_bar_menu,menu)
         return true
     }
-
-//    fun testHttp() {
-//        var request = Request.Builder().url("http://10.0.2.2:8080/users").build()
-//        val call = client.newCall(request)
-//        val response = call.execute()
-//        println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx")
-//        println(response.body?.string())
-//        println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-//        //response.close()
-//    }
-//
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
