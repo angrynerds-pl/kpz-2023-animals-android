@@ -2,7 +2,6 @@ package com.example.animalsandroid.serverCommunication.controllers
 
 import com.example.animalsandroid.DTO.BreedDTO
 import com.example.animalsandroid.DTO.AnimalSex
-import com.example.animalsandroid.DTO.BreedDTO
 import com.example.animalsandroid.DTO.RequestDTO.AnimalRequestDTO
 import com.example.animalsandroid.DTO.ResponseDTO.AnimalResponseDTO
 import com.example.animalsandroid.DTO.TypeDTO
@@ -20,6 +19,7 @@ class AnimalController {
             val animalRequestDTO = AnimalRequestDTO(name, chip, sex, ownerId, animalColorId, breedId)
             val serverCommunicator = ServerCommunicator ()
             serverCommunicator.post("animals", AnimalRequestDTO::class.java, animalRequestDTO)
+    }
 
     fun getAnimalById(id : Int): AnimalResponseDTO {
         val serverCommunicator = ServerCommunicator()
