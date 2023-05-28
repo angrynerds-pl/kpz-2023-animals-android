@@ -1,6 +1,7 @@
 package com.example.animalsandroid.DTO.ResponseDTO
 
 import com.example.animalsandroid.DTO.CoordinateDTO
+import com.example.animalsandroid.DTO.ReportStatusDTO
 import com.fasterxml.jackson.annotation.JsonProperty
 
 data class SeenReportResponseDTO(
@@ -22,4 +23,7 @@ data class SeenReportResponseDTO(
     val seenDate : String,
     @JsonProperty
     val description : String
-)
+){
+    constructor() : this(0, 0, "", "", "", AnimalResponseDTO(),
+        CoordinateDTO(), "", "")
+}

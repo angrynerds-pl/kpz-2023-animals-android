@@ -16,4 +16,6 @@ data class SeenReportRequestDTO(
     val animalId : Int,
     @JsonProperty
     val animalRequest: AnimalRequestDTO
-)
+){
+    constructor() : this("", CoordinateDTO(), "", 0, 0, AnimalRequestDTO())
+}

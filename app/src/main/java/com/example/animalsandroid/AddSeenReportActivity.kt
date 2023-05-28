@@ -25,10 +25,7 @@ import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
-import com.example.animalsandroid.DTO.AnimalColorDTO
-import com.example.animalsandroid.DTO.AnimalSex
-import com.example.animalsandroid.DTO.BreedDTO
-import com.example.animalsandroid.DTO.TypeDTO
+import com.example.animalsandroid.DTO.*
 import com.example.animalsandroid.adapters.AnimalBreedAdapter
 import com.example.animalsandroid.adapters.AnimalColorAdapter
 import com.example.animalsandroid.adapters.AnimalTypeAdapter
@@ -36,6 +33,7 @@ import com.example.animalsandroid.serverCommunication.controllers.AnimalColorCon
 import com.example.animalsandroid.serverCommunication.controllers.BreedController
 import com.example.animalsandroid.serverCommunication.controllers.TypeController
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import java.util.*
 
@@ -56,6 +54,9 @@ class AddSeenReportActivity : AppCompatActivity() {
     private lateinit var selectedType : TypeDTO
     private lateinit var selectedColor : AnimalColorDTO
     private lateinit var selectedSex : AnimalSex
+    private lateinit var coordinateDTO: CoordinateDTO
+    private var selectedLocation: LatLng? = null
+    private lateinit var selectedDate : String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -172,7 +173,7 @@ class AddSeenReportActivity : AppCompatActivity() {
 
     //---------------------------Date---------------------------
     fun pickDate(view: View){
-        var formatDate = SimpleDateFormat( "dd MMMM YYYY", Locale.ROOT)
+        var formatDate = SimpleDateFormat( "dd/MM/yyyy", Locale.ROOT)
         val getDate = Calendar.getInstance()
 
         val datePicker = DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,
@@ -181,23 +182,27 @@ class AddSeenReportActivity : AppCompatActivity() {
                 selectDate.set(Calendar.YEAR, i)
                 selectDate.set(Calendar.MONTH, i2)
                 selectDate.set(Calendar.DAY_OF_MONTH, i3)
-                val date = formatDate.format(selectDate.time)
-                findViewById<EditText>(R.id.editTextDate).setText(date)
+
+                selectedDate = formatDate.format(selectDate.time)
+                val dayTextView = findViewById<TextView>(R.id.dateTextView)
+                dayTextView.text = selectedDate
             }, getDate.get(Calendar.YEAR), getDate.get(Calendar.MONTH), getDate.get(Calendar.DAY_OF_MONTH))
         datePicker.show()
     }
 
 
     //----------------------------Map----------------------------
-
-
-    private fun showMapDialog() {
+    private fun showMapDialog2() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_map, null)
         val dialogBuilder = AlertDialog.Builder(this)
             .setTitle("Wybierz punkt")
             .setView(dialogView)
             .setPositiveButton("OK") { dialog, _ ->
-                dialog.dismiss()
+                if(selectedLocation != null){
+                    dialog.dismiss()
+                }else{
+                    Toast.makeText(this, "Wybierz punkt na mapie", Toast.LENGTH_SHORT).show()
+                }
             }
             .setNegativeButton("Anuluj") { dialog, _ ->
                 dialog.dismiss()
@@ -212,14 +217,62 @@ class AddSeenReportActivity : AppCompatActivity() {
         dialogMapView?.getMapAsync { map ->
             googleMap = map
             googleMap.setOnMapClickListener { latLng ->
-                // Tutaj możesz przetworzyć długość i szerokość geograficzną
+                googleMap.clear()
+                coordinateDTO = CoordinateDTO(latLng.latitude, latLng.longitude)
 
                 googleMap.addMarker(MarkerOptions().position(latLng))
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
                 dialogMapView?.onResume()
+                selectedLocation = latLng
             }
         }
     }
+
+    private fun showMapDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_map, null)
+        val dialogBuilder = createDialogBuilder().setView(dialogView)
+        val dialog = dialogBuilder.create()
+        dialog.show()
+
+        dialogMapView = dialogView.findViewById<MapView>(R.id.dialogMapView)
+        dialogMapView?.onCreate(dialog.onSaveInstanceState())
+        dialogMapView?.onResume()
+        dialogMapView?.getMapAsync { map ->
+            googleMap = map
+            setupMap()
+        }
+    }
+
+    private fun createDialogBuilder(): AlertDialog.Builder {
+        return AlertDialog.Builder(this)
+            .setTitle("Wybierz punkt")
+            .setPositiveButton("OK") { dialog, _ ->
+                if (::coordinateDTO.isInitialized) {
+                    dialog.dismiss()
+                } else {
+                    Toast.makeText(this, "Wybierz punkt na mapie", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton("Anuluj") { dialog, _ ->
+                dialog.dismiss()
+            }
+    }
+
+    private fun setupMap() {
+        googleMap.setOnMapClickListener { latLng ->
+            googleMap.clear()
+            coordinateDTO = CoordinateDTO(latLng.latitude, latLng.longitude)
+
+            googleMap.addMarker(MarkerOptions().position(latLng))
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
+            dialogMapView?.onResume()
+
+            val checkBox = findViewById<CheckBox>(R.id.localityCheckBox)
+            checkBox.isChecked = true
+        }
+    }
+
+
     //-------------------------Spinners-------------------------
     private fun animalColorSpinner(){
         val animalColorController = AnimalColorController()

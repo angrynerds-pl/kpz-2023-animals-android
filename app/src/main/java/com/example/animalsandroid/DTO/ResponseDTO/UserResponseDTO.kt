@@ -1,5 +1,9 @@
 package com.example.animalsandroid.DTO.ResponseDTO
 
+import com.example.animalsandroid.DTO.AnimalColorDTO
+import com.example.animalsandroid.DTO.AnimalPictureDTO
+import com.example.animalsandroid.DTO.AnimalSex
+import com.example.animalsandroid.DTO.BreedDTO
 import com.fasterxml.jackson.annotation.JsonProperty
 
 data class UserResponseDTO(
@@ -15,4 +19,7 @@ data class UserResponseDTO(
     val email : String,
     @JsonProperty
     val animals : Array<AnimalResponseDTO>
-)
+){
+    constructor() : this(0,"", "", "", "", arrayOf(AnimalResponseDTO())
+    )
+}
