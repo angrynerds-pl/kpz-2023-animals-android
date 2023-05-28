@@ -34,5 +34,4 @@ data class AnimalResponseDTO (
 ){
     constructor() : this(0,"", "", BreedDTO(), AnimalColorDTO(), AnimalSex.NIEZNANA, 0,
         "", "", "", AnimalPictureDTO())
-
 }

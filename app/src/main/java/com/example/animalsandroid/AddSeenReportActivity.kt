@@ -1,6 +1,6 @@
 package com.example.animalsandroid
 
-import android.app.Activity
+import android.Manifest
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -26,14 +26,15 @@ import java.text.SimpleDateFormat
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.example.animalsandroid.DTO.*
+import com.example.animalsandroid.DTO.RequestDTO.AnimalRequestDTO
 import com.example.animalsandroid.adapters.AnimalBreedAdapter
 import com.example.animalsandroid.adapters.AnimalColorAdapter
 import com.example.animalsandroid.adapters.AnimalTypeAdapter
 import com.example.animalsandroid.serverCommunication.controllers.AnimalColorController
-import com.example.animalsandroid.serverCommunication.controllers.BreedController
+import com.example.animalsandroid.serverCommunication.controllers.AnimalController
+import com.example.animalsandroid.serverCommunication.controllers.SeenReportController
 import com.example.animalsandroid.serverCommunication.controllers.TypeController
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import java.util.*
 
@@ -48,7 +49,7 @@ class AddSeenReportActivity : AppCompatActivity() {
     private lateinit var selectedType : TypeDTO
     private lateinit var selectedColor : AnimalColorDTO
     private lateinit var selectedSex : AnimalSex
-    private lateinit var coordinateDTO: CoordinateDTO
+    private lateinit var selectedCoordinate: CoordinateDTO
     private lateinit var selectedDate : String
     private lateinit var description : String
 
@@ -80,7 +81,7 @@ class AddSeenReportActivity : AppCompatActivity() {
 
         getData()
         if(!::pickedBitMap.isInitialized || !::selectedBreed.isInitialized || !::selectedType.isInitialized ||
-            !::selectedSex.isInitialized || !::coordinateDTO.isInitialized || !::selectedDate.isInitialized
+            !::selectedSex.isInitialized || !::selectedCoordinate.isInitialized || !::selectedDate.isInitialized
             || description == "") {
             toastMsg("Nie podano wszystkich danych")
         }
@@ -95,6 +96,14 @@ class AddSeenReportActivity : AppCompatActivity() {
     }
 
     private fun sendData(){
+
+        val seenReportController = SeenReportController()
+        val animal = AnimalRequestDTO(sex = selectedSex, animalColorId = selectedColor.id, breedId = selectedBreed.id)
+        seenReportController.postSeenReport(lostDate = selectedDate, coordinate = selectedCoordinate, description = description,
+            userId = 1, null, animalRequest = animal)
+
+        //userId jest hardcodowane + trzeba jeszcze dodać wysyłanie zdjęcia
+
         val intent = Intent()
         intent.putExtra("EXTRA_STRING", "x")
         intent.putExtra("EXTRA_BOOLEAN", true)
@@ -124,9 +133,9 @@ class AddSeenReportActivity : AppCompatActivity() {
     }
 
     fun pickedPhoto (view: View){
-        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
             != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
         }else{
             val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(galleryIntent, 2)
@@ -134,7 +143,7 @@ class AddSeenReportActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == 2 && resultCode == Activity.RESULT_OK && data != null ){
+        if(requestCode == 2 && resultCode == RESULT_OK && data != null ){
             var pickedPhoto: Uri = data.data!!
             pickedBitMap = if (Build.VERSION.SDK_INT >= 28){
                 ImageDecoder.decodeBitmap(ImageDecoder.createSource(this.contentResolver, pickedPhoto!!))
@@ -165,7 +174,7 @@ class AddSeenReportActivity : AppCompatActivity() {
 
     //---------------------------Date---------------------------
     fun pickDate(view: View){
-        var formatDate = SimpleDateFormat( "dd/MM/yyyy", Locale.ROOT)
+        var formatDate = SimpleDateFormat( "yyyy-MM-dd", Locale.ROOT)
         val getDate = Calendar.getInstance()
 
         val datePicker = DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,
@@ -204,7 +213,7 @@ class AddSeenReportActivity : AppCompatActivity() {
         return AlertDialog.Builder(this)
             .setTitle("Wybierz punkt")
             .setPositiveButton("OK") { dialog, _ ->
-                if (::coordinateDTO.isInitialized) {
+                if (::selectedCoordinate.isInitialized) {
                     dialog.dismiss()
                 } else {
                     Toast.makeText(this, "Wybierz punkt na mapie", Toast.LENGTH_SHORT).show()
@@ -218,10 +227,10 @@ class AddSeenReportActivity : AppCompatActivity() {
     private fun setupMap() {
         googleMap.setOnMapClickListener { latLng ->
             googleMap.clear()
-            coordinateDTO = CoordinateDTO(latLng.latitude, latLng.longitude)
+            selectedCoordinate = CoordinateDTO(latLng.latitude, latLng.longitude)
 
             googleMap.addMarker(MarkerOptions().position(latLng))
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
             dialogMapView?.onResume()
 
             val checkBox = findViewById<CheckBox>(R.id.localityCheckBox)

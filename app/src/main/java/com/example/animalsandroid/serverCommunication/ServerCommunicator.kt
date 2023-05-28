@@ -2,6 +2,8 @@ package com.example.animalsandroid.serverCommunication
 
 import okhttp3.MediaType.Companion.toMediaType
 import com.fasterxml.jackson.databind.ObjectMapper
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import okhttp3.*
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONArray
@@ -14,6 +16,7 @@ class ServerCommunicator() {
         val objectMapper = ObjectMapper()
         val json = objectMapper.writeValueAsString(item)
         val requestBody = json.toRequestBody("application/json".toMediaType())
+        println(json)
 
         val request = Request.Builder()
             .url(serverAddress + endpoint)
@@ -23,12 +26,25 @@ class ServerCommunicator() {
         return callRequest(request) != null
     }
 
-    fun get(endpoint: String) : String?{
+    fun <T> get(endpoint: String, itemType: Class<T>): T {
+        val client = OkHttpClient()
         val request = Request.Builder()
             .url(serverAddress + endpoint)
             .build()
 
-        return callRequest(request)
+        val objectMapper = ObjectMapper()
+
+        val response = client.newCall(request).execute()
+        if (response.isSuccessful) {
+            val responseBody = response.body?.string()
+            try {
+                return objectMapper.readValue(responseBody, itemType)
+            } catch (e: IOException) {
+                throw e
+            }
+        } else {
+            throw Exception("Request unsuccessful: ${response.code}")
+        }
     }
 
 
@@ -38,15 +54,15 @@ class ServerCommunicator() {
         var responseBody : String? = null
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                //print("błąd\n")
+                print("błąd\n")
             }
 
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
                     responseBody = response.body?.string()
-                    //print("udało się\n")
+                    print("udało się\n")
                 } else {
-                    //print("nie udało się\n")
+                    print("nie udało się\n")
                 }
             }
         })

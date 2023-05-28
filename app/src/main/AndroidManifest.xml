@@ -25,7 +25,7 @@
             android:name=".trainingListAcivity.TrainingListItemActivity"
             android:exported="false" />
         <activity
-            android:name=".AddTrainingActivity"
+            android:name=".trainingListAcivity.AddTrainingActivity"
             android:exported="false" />
         <activity
             android:name=".trainingListAcivity.TrainingListActivity"
