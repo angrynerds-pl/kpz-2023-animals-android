@@ -1,4 +1,4 @@
-package com.example.animalsandroid
+package com.example.animalsandroid.trainingListAcivity
 
 import android.app.Activity
 import android.content.Intent
@@ -15,6 +15,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.animalsandroid.R
 import com.example.animalsandroid.databinding.ActivityAddProfileBinding
 import java.io.ByteArrayOutputStream
 

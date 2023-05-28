@@ -15,5 +15,5 @@ data class LostReportRequestDTO(
     @JsonProperty
     val reportStatusId : Int
 ) {
-    constructor() : this("", CoordinateDTO(), "", 0, 0)
+    constructor(lostDate : String, coordinate: CoordinateDTO, description : String, animalId : Int) : this(lostDate, coordinate, description, animalId, 0)
 }

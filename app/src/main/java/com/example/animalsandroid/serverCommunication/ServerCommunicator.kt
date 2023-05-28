@@ -12,8 +12,9 @@ class ServerCommunicator() {
 
     fun <E> post(endpoint : String, itemType: Class<E>, item: E) : Boolean {
         val objectMapper = ObjectMapper()
-        val json = objectMapper.writeValueAsString(itemType)
+        val json = objectMapper.writeValueAsString(item)
         val requestBody = json.toRequestBody("application/json".toMediaType())
+        println(json)
 
         val request = Request.Builder()
             .url(serverAddress + endpoint)
@@ -38,15 +39,15 @@ class ServerCommunicator() {
         var responseBody : String? = null
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                //print("błąd\n")
+                print("błąd\n")
             }
 
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
                     responseBody = response.body?.string()
-                    //print("udało się\n")
+                    print("udało się\n")
                 } else {
-                    //print("nie udało się\n")
+                    print("nie udało się\n")
                 }
             }
         })
