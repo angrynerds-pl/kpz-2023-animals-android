@@ -39,12 +39,6 @@ import java.util.*
 
 class AddSeenReportActivity : AppCompatActivity() {
 
-    private lateinit var name : String
-    private lateinit var locality : String
-    private lateinit var date : String
-    private lateinit var concatText : String
-    private lateinit var description : String
-
     private lateinit var pickedBitMap: Bitmap
     private lateinit var bilding: ActivityAddSeenReportBinding
     private lateinit var googleMap : GoogleMap
@@ -56,6 +50,7 @@ class AddSeenReportActivity : AppCompatActivity() {
     private lateinit var selectedSex : AnimalSex
     private lateinit var coordinateDTO: CoordinateDTO
     private lateinit var selectedDate : String
+    private lateinit var description : String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,12 +59,12 @@ class AddSeenReportActivity : AppCompatActivity() {
         setContentView(bilding.root)
         //setContentView(R.layout.activity_add_found_report)
 
-        //------spinner------
+        //------spinners------
         animalTypeSpinner()
         animalColorSpinner()
         animalSexSpinner()
 
-        //-----mapa-----
+        //-------map-------
         val buttonPickLocation = findViewById<Button>(R.id.buttonPickLocation)
         buttonPickLocation.setOnClickListener{
             showMapDialog()
@@ -84,7 +79,9 @@ class AddSeenReportActivity : AppCompatActivity() {
     fun displayToastMsg(v: View){
 
         getData()
-        if(name == "" || locality == "" || date == "" || !::pickedBitMap.isInitialized) {
+        if(!::pickedBitMap.isInitialized || !::selectedBreed.isInitialized || !::selectedType.isInitialized ||
+            !::selectedSex.isInitialized || !::coordinateDTO.isInitialized || !::selectedDate.isInitialized
+            || description == "") {
             toastMsg("Nie podano wszystkich danych")
         }
         else {
@@ -94,16 +91,12 @@ class AddSeenReportActivity : AppCompatActivity() {
     }
 
     private fun getData() {
-        name = findViewById<EditText>(R.id.editTextSpecies).text.toString()
-        locality = findViewById<EditText>(R.id.editTextLocality).text.toString()
-        date = findViewById<EditText>(R.id.editTextDate).text.toString()
-        concatText = name.plus("\n").plus(locality).plus("\n").plus(date)
         description = findViewById<EditText>(R.id.editTextDesc).text.toString()
     }
 
     private fun sendData(){
         val intent = Intent()
-        intent.putExtra("EXTRA_STRING", concatText)
+        intent.putExtra("EXTRA_STRING", "x")
         intent.putExtra("EXTRA_BOOLEAN", true)
         intent.putExtra("EXTRA_DESC", description)
         intent.putExtra("EXTRA_JPEG", compressBitmap(pickedBitMap))
@@ -251,11 +244,9 @@ class AddSeenReportActivity : AppCompatActivity() {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 selectedColor = parent.getItemAtPosition(position) as AnimalColorDTO
-                // Wykonaj akcję na wybranym kolorze
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                // Obsłuż brak wybranego koloru
             }
         }
     }
