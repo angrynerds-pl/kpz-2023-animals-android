@@ -55,7 +55,6 @@ class AddSeenReportActivity : AppCompatActivity() {
     private lateinit var selectedColor : AnimalColorDTO
     private lateinit var selectedSex : AnimalSex
     private lateinit var coordinateDTO: CoordinateDTO
-    private var selectedLocation: LatLng? = null
     private lateinit var selectedDate : String
 
 
@@ -192,41 +191,6 @@ class AddSeenReportActivity : AppCompatActivity() {
 
 
     //----------------------------Map----------------------------
-    private fun showMapDialog2() {
-        val dialogView = layoutInflater.inflate(R.layout.dialog_map, null)
-        val dialogBuilder = AlertDialog.Builder(this)
-            .setTitle("Wybierz punkt")
-            .setView(dialogView)
-            .setPositiveButton("OK") { dialog, _ ->
-                if(selectedLocation != null){
-                    dialog.dismiss()
-                }else{
-                    Toast.makeText(this, "Wybierz punkt na mapie", Toast.LENGTH_SHORT).show()
-                }
-            }
-            .setNegativeButton("Anuluj") { dialog, _ ->
-                dialog.dismiss()
-            }
-
-        val dialog = dialogBuilder.create()
-        dialog.show()
-
-        dialogMapView = dialogView.findViewById<MapView>(R.id.dialogMapView)
-        dialogMapView?.onCreate(dialog.onSaveInstanceState())
-        dialogMapView?.onResume()
-        dialogMapView?.getMapAsync { map ->
-            googleMap = map
-            googleMap.setOnMapClickListener { latLng ->
-                googleMap.clear()
-                coordinateDTO = CoordinateDTO(latLng.latitude, latLng.longitude)
-
-                googleMap.addMarker(MarkerOptions().position(latLng))
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
-                dialogMapView?.onResume()
-                selectedLocation = latLng
-            }
-        }
-    }
 
     private fun showMapDialog() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_map, null)
