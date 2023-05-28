@@ -1,5 +1,6 @@
 package com.example.animalsandroid
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.content.Intent
@@ -53,19 +54,21 @@ class AnimalsList : AppCompatActivity() {
         var adapter = LostAnimalAdapter(newArrayList)
         newRecyclerView.adapter = adapter
         adapter.setOnClickListener(object : LostAnimalAdapter.onItemClickListener{
+            @SuppressLint("SuspiciousIndentation")
             override fun onItemClick(position: Int) {
 
               val intent : Intent = Intent(this@AnimalsList,ListItemActivity::class.java)
                 intent.putExtra("EXTRA_IMG",animalPhoto)
-                intent.putExtra("EXTRA_DATE", animalsList[position].lostDate)
+                intent.putExtra("EXTRA_DATE", animalsList[position].lostDate.removeRange(10,animalsList[position].lostDate.length))
                 intent.putExtra("EXTRA_NAME", animalsList[position].animal.name)
-                intent.putExtra("EXTRA_CHIP", animalsList[position].animal.sex)
+                intent.putExtra("EXTRA_SEX", animalsList[position].animal.sex.name)
                 intent.putExtra("EXTRA_OWNER_NAME", animalsList[position].animal.ownerName)
                 intent.putExtra("EXTRA_OWNER_PHONE_NUMBER", animalsList[position].animal.ownerPhoneNumber)
                 intent.putExtra("EXTRA_DESC", animalsList[position].description)
                 intent.putExtra("EXTRA_BREED", animalsList[position].animal.breed.name)
                 intent.putExtra("EXTRA_COLOR", animalsList[position].animal.color.name)
                 intent.putExtra("EXTRA_TYPE", animalsList[position].animal.breed.type.name)
+                intent.putExtra("EXTRA_CHIP", animalsList[position].animal.chip)
                 startActivity(intent)
             }
 
