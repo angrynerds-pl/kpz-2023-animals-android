@@ -2,8 +2,9 @@ package com.example.animalsandroid.DTO.ResponseDTO
 
 import com.example.animalsandroid.DTO.CoordinateDTO
 import com.example.animalsandroid.DTO.ReportStatusDTO
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class LostReportResponseDTO(
     @JsonProperty
     val id  : Int,

@@ -4,13 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:fillViewport="true">
 
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddProfileActivity">
@@ -31,66 +28,104 @@
         app:srcCompat="@drawable/ic_launcher_background" />
 
     <EditText
-        android:id="@+id/Name"
+        android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         android:hint="Imię"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <EditText
-        android:id="@+id/Species"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:hint="Gatunek"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Name" />
-
-    <EditText
-        android:id="@+id/Breed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:hint="Rasa"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Species" />
-
-    <EditText
-        android:id="@+id/Gender"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:hint="Płeć"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Breed" />
-
-    <EditText
-        android:id="@+id/Chip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:hint="Numer Chipu"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Gender" />
-
-    <Button
-        android:id="@+id/button2"
+    <TextView
+        android:id="@+id/typ"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Zatwierdź"
-        android:onClick="displayToastMsg"
+        android:layout_marginStart="20dp"
+        android:text="Typ:"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerType"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/spinnerType" />
+
+    <Spinner
+        android:id="@+id/spinnerType"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/typ"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <TextView
+        android:id="@+id/rasa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rasa:"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerBreed"
+        app:layout_constraintStart_toStartOf="@+id/typ"
+        app:layout_constraintTop_toTopOf="@+id/spinnerBreed" />
+
+    <Spinner
+        android:id="@+id/spinnerBreed"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerType"
+        app:layout_constraintStart_toStartOf="@+id/spinnerType"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerType" />
+
+    <TextView
+        android:id="@+id/plec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Płeć:"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerSex"
+        app:layout_constraintStart_toStartOf="@+id/kolor"
+        app:layout_constraintTop_toTopOf="@+id/spinnerSex" />
+
+    <Spinner
+        android:id="@+id/spinnerSex"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerBreed"
+        app:layout_constraintStart_toStartOf="@+id/spinnerBreed"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerColor" />
+
+    <EditText
+        android:id="@+id/chipNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:hint="Numer chipu"
+        android:inputType="number"
+        android:maxLength="16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Chip" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerSex" />
+
+    <TextView
+        android:id="@+id/kolor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kolor:"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerColor"
+        app:layout_constraintStart_toStartOf="@+id/rasa"
+        app:layout_constraintTop_toTopOf="@+id/spinnerColor" />
+
+    <Spinner
+        android:id="@+id/spinnerColor"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerBreed"
+        app:layout_constraintStart_toStartOf="@+id/spinnerBreed"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerBreed" />
 
     <TextView
         android:id="@+id/textViewAddPhoto"
@@ -107,6 +142,17 @@
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="Zatwierdź"
+        android:onClick="displayToastMsg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chipNumber" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

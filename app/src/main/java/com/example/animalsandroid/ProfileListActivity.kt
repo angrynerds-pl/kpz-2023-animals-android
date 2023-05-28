@@ -8,18 +8,23 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.animalsandroid.DTO.BreedDTO
+import com.example.animalsandroid.DTO.ResponseDTO.AnimalResponseDTO
+import com.example.animalsandroid.DTO.TypeDTO
+import com.example.animalsandroid.serverCommunication.controllers.AnimalController
 
 class ProfileListActivity : AppCompatActivity() {
 
     private lateinit var newRecyclerView : RecyclerView
     private var animalPhoto: Bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
     private lateinit var newArrayList : ArrayList<Animal>
-    lateinit var names : ArrayList<String>
-    lateinit var species : ArrayList<String>
-    lateinit var breeds : ArrayList<String>
-    lateinit var genders : ArrayList<String>
-    lateinit var chips : ArrayList<String>
-    lateinit var byteArray : ByteArray
+    private lateinit var animalsList : List<AnimalResponseDTO>
+   // lateinit var names : ArrayList<String>
+   // lateinit var species : ArrayList<String>
+   // lateinit var breeds : ArrayList<String>
+   // lateinit var genders : ArrayList<String>
+   // lateinit var chips : ArrayList<String>
+   // lateinit var byteArray : ByteArray
 
     var ifAdd = false
 
@@ -28,11 +33,14 @@ class ProfileListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_list)
 
-        names = arrayListOf()
-        species = arrayListOf()
-        breeds = arrayListOf()
-        genders = arrayListOf()
-        chips = arrayListOf()
+        var animalResponse = AnimalController()
+        animalsList = animalResponse.getAllAnimals()
+
+       // names = arrayListOf()
+       // species = arrayListOf()
+       // breeds = arrayListOf()
+       // genders = arrayListOf()
+       // chips = arrayListOf()
 
         newRecyclerView = findViewById(R.id.mRecycler)
         newRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -42,64 +50,49 @@ class ProfileListActivity : AppCompatActivity() {
         getUserData()
     }
 
+
     fun getUserData() {
-        if (ifAdd) {
-            newArrayList.clear()
-            for (i in names) {
-                val animal = Animal(animalPhoto, i)
+//            newArrayList.clear()
+            for (i in animalsList) {
+                val animal = Animal(animalPhoto, i.name)
                 newArrayList.add(animal)
             }
             //for (i in descriptions) {
             //    desc.add(i)
             //}
-        }
         var adapter = MyAdapter(newArrayList)
         newRecyclerView.adapter = adapter
 
         adapter.setOnClickListener(object : MyAdapter.onItemClickListener {
             override fun onItemClick(position: Int) {
 
+
                 val intent: Intent = Intent(this@ProfileListActivity, ProfileListItemActivity::class.java)
-                intent.putExtra("EXTRA_IMG", byteArray)
-                intent.putExtra("EXTRA_NAME",names[position])
-                intent.putExtra("EXTRA_SPECIES", species[position])
-                intent.putExtra("EXTRA_BREED", breeds[position])
-                intent.putExtra("EXTRA_GENDER", genders[position])
-                intent.putExtra("EXTRA_CHIP", chips[position])
+                intent.putExtra("EXTRA_IMG", animalPhoto)
+                intent.putExtra("EXTRA_NAME",animalsList[position].name)
+                intent.putExtra("EXTRA_SPECIES", animalsList[position].breed.type.name)
+                intent.putExtra("EXTRA_BREED", animalsList[position].breed.name)
+                intent.putExtra("EXTRA_GENDER", animalsList[position].sex.name)
+                intent.putExtra("EXTRA_CHIP", animalsList[position].chip)
                 startActivity(intent)
+
+
+
             }
 
         })
     }
 
+
+
     fun addAnimalProfile(view : View){
         val intent = Intent(this, AddProfileActivity::class.java)
-        startActivityForResult(intent, 1)
+        startActivity(intent)
         }
 
-    override fun onActivityResult(requestedCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestedCode, resultCode, data)
-        if (requestedCode == 1) {
-            if (data != null) {
-                ifAdd = data.getBooleanExtra("EXTRA_BOOLEAN", false)
-                var name = data.getStringExtra("EXTRA_NAME").toString()
-                names.add(name)
-                var specie = data.getStringExtra("EXTRA_SPECIES").toString()
-                species.add(specie)
-                var breed = data.getStringExtra("EXTRA_BREED").toString()
-                breeds.add(breed)
-                var gender = data.getStringExtra("EXTRA_GENDER").toString()
-                genders.add(gender)
-                var chip = data.getStringExtra("EXTRA_CHIP").toString()
-                chips.add(chip)
-                byteArray = data.getByteArrayExtra("EXTRA_JPEG")!!
-                if (byteArray != null && byteArray.isNotEmpty()) {
-                    animalPhoto = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
-                }
-            }
-            getUserData()
-
-        }
-    }
 
 }
+
+
+
+

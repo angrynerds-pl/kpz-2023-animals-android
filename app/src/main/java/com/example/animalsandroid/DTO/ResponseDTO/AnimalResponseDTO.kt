@@ -1,8 +1,13 @@
 package com.example.animalsandroid.DTO.ResponseDTO
+import android.annotation.SuppressLint
+import androidx.annotation.Nullable
 import com.example.animalsandroid.DTO.*
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class AnimalResponseDTO(
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class AnimalResponseDTO (
     @JsonProperty
     val id : Int,
     @JsonProperty
@@ -29,4 +34,5 @@ data class AnimalResponseDTO(
 ){
     constructor() : this(0,"", "", BreedDTO(), AnimalColorDTO(), AnimalSex.NIEZNANA, 0,
         "", "", "", AnimalPictureDTO())
+
 }

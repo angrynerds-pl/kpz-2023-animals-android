@@ -253,8 +253,8 @@ class AddSeenReportActivity : AppCompatActivity() {
 
     private fun animalBreedSpinner(){
         val typeController = TypeController()
-
         val animalBreeds = typeController.getBreedsForType(selectedType.id)
+
         val spinner: Spinner = findViewById(R.id.breedSpinner)
 
         val adapter = AnimalBreedAdapter(this, android.R.layout.simple_spinner_item, animalBreeds)

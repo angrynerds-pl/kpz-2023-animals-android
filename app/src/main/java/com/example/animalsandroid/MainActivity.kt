@@ -10,7 +10,9 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.example.animalsandroid.DTO.AnimalColorDTO
+import com.example.animalsandroid.DTO.AnimalSex
 import com.example.animalsandroid.serverCommunication.ServerCommunicator
+import com.example.animalsandroid.serverCommunication.controllers.AnimalController
 import com.example.animalsandroid.trainingListAcivity.TrainingListActivity
 import com.example.animalsandroid.veterinaryMapActivity.VeterinaryMapActivity
 import okhttp3.*
@@ -49,6 +51,9 @@ class MainActivity : AppCompatActivity() {
 //        colorList.forEach { color ->
 //            println("ID: ${color.id}, Color: ${color.name}")
 //        }
+
+        val animalControler = AnimalController()
+        animalControler.postAnimal("Kropka", "1234567890123456", AnimalSex.SAMICA, 1, 1, 1)
     }
 
 

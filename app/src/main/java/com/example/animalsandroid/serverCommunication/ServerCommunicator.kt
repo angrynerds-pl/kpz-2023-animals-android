@@ -12,7 +12,7 @@ class ServerCommunicator() {
 
     fun <E> post(endpoint : String, itemType: Class<E>, item: E) : Boolean {
         val objectMapper = ObjectMapper()
-        val json = objectMapper.writeValueAsString(itemType)
+        val json = objectMapper.writeValueAsString(item)
         val requestBody = json.toRequestBody("application/json".toMediaType())
 
         val request = Request.Builder()
