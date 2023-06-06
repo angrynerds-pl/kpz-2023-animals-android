@@ -1,6 +1,7 @@
 package com.example.animalsandroid
 
 import android.content.Intent
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
@@ -54,7 +55,7 @@ class ProfileListActivity : AppCompatActivity() {
     fun getUserData() {
 //            newArrayList.clear()
             for (i in animalsList) {
-                val animal = Animal(animalPhoto, i.name)
+                val animal = Animal(R.drawable.a, i.name) //val animal = Animal(animalPhoto, i.name)
                 newArrayList.add(animal)
             }
             //for (i in descriptions) {

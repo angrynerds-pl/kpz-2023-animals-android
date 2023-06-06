@@ -9,20 +9,26 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/find_animal_background"
             tools:context=".AddSeenReportActivity">
 
-        <Button
-                android:id="@+id/buttonAccept"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:onClick="displayToastMsg"
-                android:text="Zatwierdź"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextDesc"
-                app:layout_constraintEnd_toEndOf="@+id/editTextDesc"
-                app:layout_constraintStart_toStartOf="@+id/editTextDesc"
-                android:layout_marginTop="32dp" />
+        <ImageButton
+            android:id="@+id/buttonAccept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/login_button"
+            android:onClick="displayToastMsg"
+            android:scaleType="fitCenter"
+            android:src="@drawable/login_arrow"
+            android:text="Zatwierdź"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/editTextDesc"
+            app:layout_constraintHorizontal_bias="0.858"
+            app:layout_constraintStart_toStartOf="@+id/editTextDesc"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDesc"
+            app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
                 android:id="@+id/imageView"
@@ -55,17 +61,19 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView" />
 
         <EditText
-                android:id="@+id/editTextDesc"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="Opis"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                app:layout_constraintEnd_toEndOf="@+id/buttonPickDate"
-                app:layout_constraintStart_toStartOf="@+id/dateTextView"
-                app:layout_constraintTop_toBottomOf="@+id/buttonPickDate"
-                android:layout_marginTop="32dp" />
+            android:id="@+id/editTextDesc"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/custom_input"
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Opis"
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonPickDate" />
 
         <Button
                 android:text="Wybierz datę"
@@ -73,6 +81,8 @@
                 android:layout_height="41dp"
                 android:id="@+id/buttonPickDate"
                 android:onClick="pickDate"
+                android:background="@drawable/lost_list_button"
+                android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="@+id/buttonPickLocation"
                 app:layout_constraintStart_toEndOf="@+id/dateTextView"
                 app:layout_constraintTop_toBottomOf="@+id/buttonPickLocation"
@@ -84,14 +94,17 @@
                 android:layout_height="45dp"
                 android:id="@+id/animalColorSpinner"
                 app:layout_constraintEnd_toEndOf="@+id/breedSpinner"
+                android:background="@drawable/custom_input"
                 app:layout_constraintTop_toBottomOf="@+id/breedSpinner"
                 android:layout_marginTop="32dp"
                 app:layout_constraintStart_toStartOf="@+id/breedSpinner" />
 
         <Button
                 android:text="Wybierz Lokalizację"
+                android:background="@drawable/lost_list_button"
                 android:layout_width="0dp"
                 android:layout_height="41dp"
+                android:textColor="@android:color/white"
                 android:id="@+id/buttonPickLocation"
                 app:layout_constraintEnd_toEndOf="@+id/animalSexSpinner"
                 app:layout_constraintTop_toBottomOf="@+id/animalSexSpinner"
@@ -102,6 +115,7 @@
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:id="@+id/breedSpinner"
+                android:background="@drawable/custom_input"
                 app:layout_constraintTop_toBottomOf="@+id/typeSpinner"
                 android:layout_marginTop="32dp"
                 app:layout_constraintStart_toStartOf="@+id/typeSpinner"
@@ -111,6 +125,7 @@
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:id="@+id/animalSexSpinner"
+                android:background="@drawable/custom_input"
                 app:layout_constraintStart_toStartOf="@+id/animalColorSpinner"
                 app:layout_constraintEnd_toEndOf="@+id/animalColorSpinner"
                 app:layout_constraintTop_toBottomOf="@+id/animalColorSpinner"
@@ -118,57 +133,53 @@
                 app:layout_constraintHorizontal_bias="1.0" />
 
         <TextView
-                android:text="Rasa:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/chooseBreedTextView"
-                app:layout_constraintTop_toTopOf="@+id/breedSpinner"
-                app:layout_constraintBottom_toBottomOf="@+id/breedSpinner"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/chooseTypeTextView" />
+            android:id="@+id/chooseBreedTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rasa:"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/breedSpinner"
+            app:layout_constraintStart_toStartOf="@+id/chooseTypeTextView" />
 
         <TextView
-                android:text="Kolor:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/chooseAnimalColorTextView"
-                app:layout_constraintTop_toTopOf="@+id/animalColorSpinner"
-                app:layout_constraintBottom_toBottomOf="@+id/animalColorSpinner"
-                app:layout_constraintStart_toStartOf="@+id/chooseBreedTextView"
-                android:textSize="16sp" />
+            android:id="@+id/chooseAnimalColorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kolor:"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/animalColorSpinner"
+            app:layout_constraintStart_toStartOf="@+id/chooseBreedTextView" />
 
         <TextView
-                android:text="Płeć:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/chooseAnimalSexTextView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/animalSexSpinner"
-                app:layout_constraintBottom_toBottomOf="@+id/animalSexSpinner"
-                android:layout_marginStart="20dp"
-                android:textSize="16sp" />
+            android:id="@+id/chooseAnimalSexTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Płeć:"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/animalSexSpinner"
+            app:layout_constraintStart_toStartOf="@+id/chooseAnimalColorTextView" />
 
         <TextView
-                android:text="Typ:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/chooseTypeTextView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/typeSpinner"
-                app:layout_constraintBottom_toBottomOf="@+id/typeSpinner"
-                android:layout_marginStart="20dp"
-                android:textSize="16sp" />
+            android:id="@+id/chooseTypeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:text="Typ:"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/typeSpinner"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Spinner
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:id="@+id/typeSpinner"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="20dp"
-                app:layout_constraintTop_toBottomOf="@+id/imageView"
-                android:layout_marginTop="60dp"
-                app:layout_constraintStart_toEndOf="@+id/chooseTypeTextView"
-                android:layout_marginStart="32dp" />
+            android:id="@+id/typeSpinner"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/custom_input"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <CheckBox
                 android:text=" "

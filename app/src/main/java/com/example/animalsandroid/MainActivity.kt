@@ -84,6 +84,11 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    fun onClickLogin(view: View){
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivityForResult(intent, 2)
+    }
+
     fun onClickReportMissing(view: View){
         if(logged == 0){
             val toast = Toast.makeText(this,"Wymaga zalogowania", Toast.LENGTH_LONG)

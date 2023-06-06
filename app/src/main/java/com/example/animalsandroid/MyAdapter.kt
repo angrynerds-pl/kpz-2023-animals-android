@@ -37,7 +37,7 @@ class MyAdapter(private val animalsList : ArrayList<Animal>) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val currentItem = animalsList[position]
-        holder.titleImage.setImageBitmap(currentItem.titleImage)
+        holder.titleImage.setImageResource(currentItem.imageID) //holder.titleImage.setImageBitmap(currentItem.titleImage)
         holder.tvHeading.text = currentItem.heading
     }
 

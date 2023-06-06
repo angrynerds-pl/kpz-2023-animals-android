@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,7 +48,7 @@ class AnimalsList : AppCompatActivity() {
 
     private fun getUserData(){
             for(i in animalsList){
-                val animal = LostAnimal(animalPhoto, i.animal.name, i.lostDate.removeRange(10,i.lostDate.length))
+                val animal = LostAnimal(R.drawable.a, i.animal.name, i.lostDate.removeRange(10,i.lostDate.length))
                 newArrayList.add(animal)
         }
         //newRecyclerView.adapter = MyAdapter(newArrayList)

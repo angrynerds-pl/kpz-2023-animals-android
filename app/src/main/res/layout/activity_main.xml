@@ -9,25 +9,41 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/main_view_background"
             tools:context=".MainActivity">
 
         <ImageView
-                android:id="@+id/imageViewLogo"
-                android:layout_width="229dp"
-                android:layout_height="191dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/logo_prototyp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.177" />
+            android:id="@+id/imageViewLogo"
+            android:layout_width="284dp"
+            android:layout_height="248dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.1" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Zaloguj"
+            android:onClick="onClickLogin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
                 android:id="@+id/buttonReportMissing"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
                 android:text="Zgłoś zaginięcie"
+                android:background="@drawable/lost_button"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="20sp"
                 android:layout_marginTop="52dp"
                 android:onClick="onClickReportMissing"
                 app:layout_constraintTop_toBottomOf="@+id/imageViewLogo"
@@ -36,9 +52,13 @@
 
         <Button
                 android:text="Zgłoś znalezienie"
+                android:background="@drawable/find_button"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
                 android:id="@+id/buttonReportFound"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="20sp"
                 android:onClick="onClickReportFound"
                 app:layout_constraintTop_toTopOf="@+id/buttonReportMissing"
                 android:layout_marginStart="32dp"
@@ -49,6 +69,10 @@
                 android:layout_width="140dp"
                 android:layout_height="140dp"
                 android:text="Lista zaginionych zwierząt"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:background="@drawable/lost_list_button"
                 android:layout_marginTop="32dp"
                 android:onClick="onClickMissingList"
                 app:layout_constraintTop_toBottomOf="@+id/buttonReportMissing"
@@ -61,6 +85,10 @@
                 android:id="@+id/buttonAnimalProfile"
                 android:layout_marginStart="32dp"
                 android:onClick="onClickAnimalProfile"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:background="@drawable/lost_list_button"
                 app:layout_constraintStart_toEndOf="@+id/buttonMissingList"
                 app:layout_constraintTop_toTopOf="@+id/buttonMissingList" />
 
@@ -71,6 +99,10 @@
                 android:id="@+id/buttonTrainingList"
                 android:layout_marginTop="32dp"
                 android:onClick="onClickTrainingList"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:background="@drawable/lost_list_button"
                 app:layout_constraintTop_toBottomOf="@+id/buttonMissingList"
                 app:layout_constraintStart_toStartOf="@+id/buttonMissingList" />
 
@@ -80,6 +112,10 @@
                 android:layout_height="140dp"
                 android:id="@+id/buttonVeterinaryList"
                 android:onClick="onClickVeterinaryList"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:background="@drawable/lost_list_button"
                 app:layout_constraintTop_toTopOf="@+id/buttonTrainingList"
                 app:layout_constraintStart_toEndOf="@+id/buttonTrainingList"
                 android:layout_marginStart="32dp" />

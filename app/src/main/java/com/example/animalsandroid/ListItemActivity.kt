@@ -41,5 +41,6 @@ class ListItemActivity : AppCompatActivity() {
         if (animalPhoto != null) {
             image.setImageBitmap(animalPhoto)
         }
+        image.setImageResource(R.drawable.a)
     }
 }

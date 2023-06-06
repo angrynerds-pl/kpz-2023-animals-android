@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login_background"
     tools:context=".trainingListAcivity.AddTrainingActivity">
 
     <ImageView
@@ -24,9 +25,13 @@
     <EditText
         android:id="@+id/trainingName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
         android:hint="Nazwa szkolenia"
+        android:background="@drawable/custom_input"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/trainingImageView" />
@@ -34,23 +39,31 @@
     <EditText
         android:id="@+id/trainingDesc"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
         android:hint="Opis"
+        android:background="@drawable/custom_input"
+        android:padding="10dp"
         android:inputType="textMultiLine"
-        app:layout_constraintTop_toBottomOf="@+id/trainingName"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trainingName" />
 
-    <Button
+    <ImageButton
         android:id="@+id/trainingAccept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
-        android:text="Zatwierdź"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/login_button"
         android:onClick="displayToastMsg"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/login_arrow"
+        android:text="Zatwierdź"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/trainingDesc" />
 
     <TextView
         android:id="@+id/textViewAddPhoto"

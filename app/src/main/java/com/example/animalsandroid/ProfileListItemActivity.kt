@@ -32,7 +32,8 @@ class ProfileListItemActivity : AppCompatActivity() {
         val imageByteArray = bundle?.getByteArray("EXTRA_IMG")
         if (imageByteArray != null && imageByteArray.isNotEmpty()) {
             imageId = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.size)
-            image.setImageBitmap(imageId)
+            //image.setImageBitmap(imageId)
         }
+        image.setImageResource(R.drawable.a)
     }
 }
