@@ -48,7 +48,7 @@ class AnimalsList : AppCompatActivity() {
 
     private fun getUserData(){
             for(i in animalsList){
-                val animal = LostAnimal(R.drawable.a, i.animal.name, i.lostDate.removeRange(10,i.lostDate.length))
+                val animal = LostAnimal(R.drawable.a, i.animal.name!!, i.lostDate.removeRange(10,i.lostDate.length))
                 newArrayList.add(animal)
         }
         //newRecyclerView.adapter = MyAdapter(newArrayList)

@@ -23,15 +23,12 @@ import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import androidx.appcompat.app.AlertDialog
 import com.example.animalsandroid.DTO.*
-import com.example.animalsandroid.DTO.RequestDTO.AnimalRequestDTO
 import com.example.animalsandroid.DTO.ResponseDTO.AnimalResponseDTO
 import com.example.animalsandroid.adapters.AnimalAdapter
-import com.example.animalsandroid.adapters.AnimalBreedAdapter
-import com.example.animalsandroid.adapters.AnimalColorAdapter
-import com.example.animalsandroid.adapters.AnimalTypeAdapter
 import com.example.animalsandroid.serverCommunication.controllers.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.MarkerOptions
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.util.*
 
 class AddLostReportActivity : AppCompatActivity(){
@@ -91,12 +88,13 @@ class AddLostReportActivity : AppCompatActivity(){
         lostReportController.postLostReport(lostDate = selectedDate, coordinate = selectedCoordinate, description = description,
             animalId = selectedAnimal.id, reportStatusId = 1)
 
-        //userId jest hardcodowane + trzeba jeszcze dodać wysyłanie zdjęcia
+        val animalController = AnimalController()
+        animalController.postAnimalPicture(selectedAnimal.id, compressBitmap(pickedBitMap))
 
         val intent = Intent()
-        intent.putExtra("EXTRA_STRING", "x")
+        //intent.putExtra("EXTRA_STRING", "x")
         intent.putExtra("EXTRA_BOOLEAN", true)
-        intent.putExtra("EXTRA_DESC", description)
+        //intent.putExtra("EXTRA_DESC", description)
         intent.putExtra("EXTRA_JPEG", compressBitmap(pickedBitMap))
         setResult(1, intent)
         finish()

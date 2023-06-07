@@ -9,34 +9,35 @@ import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.example.animalsandroid.databinding.ActivityAddSeenReportBinding
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapView
-import java.io.ByteArrayOutputStream
-import java.text.SimpleDateFormat
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.animalsandroid.DTO.*
 import com.example.animalsandroid.DTO.RequestDTO.AnimalRequestDTO
+import com.example.animalsandroid.DTO.RequestDTO.SeenReportRequestDTO
+import com.example.animalsandroid.DTO.ResponseDTO.SeenReportResponseDTO
 import com.example.animalsandroid.adapters.AnimalBreedAdapter
 import com.example.animalsandroid.adapters.AnimalColorAdapter
 import com.example.animalsandroid.adapters.AnimalTypeAdapter
+import com.example.animalsandroid.databinding.ActivityAddSeenReportBinding
 import com.example.animalsandroid.serverCommunication.controllers.AnimalColorController
 import com.example.animalsandroid.serverCommunication.controllers.AnimalController
 import com.example.animalsandroid.serverCommunication.controllers.SeenReportController
 import com.example.animalsandroid.serverCommunication.controllers.TypeController
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.MarkerOptions
+import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
 import java.util.*
+
 
 class AddSeenReportActivity : AppCompatActivity() {
 
@@ -97,17 +98,18 @@ class AddSeenReportActivity : AppCompatActivity() {
 
     private fun sendData(){
 
+        //userId jest hardcodowane
         val seenReportController = SeenReportController()
         val animal = AnimalRequestDTO(sex = selectedSex, animalColorId = selectedColor.id, breedId = selectedBreed.id)
         seenReportController.postSeenReport(lostDate = selectedDate, coordinate = selectedCoordinate, description = description,
-            userId = 1, null, animalRequest = animal)
+            userId = 1, null, animalRequest = animal, animalPhoto = compressBitmap(pickedBitMap))
 
-        //userId jest hardcodowane + trzeba jeszcze dodać wysyłanie zdjęcia
+
 
         val intent = Intent()
-        intent.putExtra("EXTRA_STRING", "x")
+        //intent.putExtra("EXTRA_STRING", "x")
         intent.putExtra("EXTRA_BOOLEAN", true)
-        intent.putExtra("EXTRA_DESC", description)
+        //intent.putExtra("EXTRA_DESC", description)
         intent.putExtra("EXTRA_JPEG", compressBitmap(pickedBitMap))
         setResult(1, intent)
         finish()

@@ -13,22 +13,20 @@
             tools:context=".AddSeenReportActivity">
 
         <ImageButton
-            android:id="@+id/buttonAccept"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/login_button"
-            android:onClick="displayToastMsg"
-            android:scaleType="fitCenter"
-            android:src="@drawable/login_arrow"
-            android:text="Zatwierdź"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/editTextDesc"
-            app:layout_constraintHorizontal_bias="0.858"
-            app:layout_constraintStart_toStartOf="@+id/editTextDesc"
-            app:layout_constraintTop_toBottomOf="@+id/editTextDesc"
-            app:layout_constraintVertical_bias="0.0" />
+                android:id="@+id/buttonAccept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/login_button"
+                android:onClick="displayToastMsg"
+                android:scaleType="fitCenter"
+                android:src="@drawable/login_arrow"
+                android:text="Zatwierdź"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/editTextDesc"
+                app:layout_constraintStart_toStartOf="@+id/editTextDesc"
+                app:layout_constraintTop_toBottomOf="@+id/editTextDesc" />
 
         <ImageView
                 android:id="@+id/imageView"
@@ -61,19 +59,19 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView" />
 
         <EditText
-            android:id="@+id/editTextDesc"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/custom_input"
-            android:drawablePadding="12dp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:hint="Opis"
-            android:inputType="textMultiLine"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonPickDate" />
+                android:id="@+id/editTextDesc"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/custom_input"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="Opis"
+                android:inputType="textMultiLine"
+                app:layout_constraintEnd_toEndOf="@+id/buttonPickDate"
+                app:layout_constraintStart_toStartOf="@+id/dateTextView"
+                app:layout_constraintTop_toBottomOf="@+id/buttonPickDate" />
 
         <Button
                 android:text="Wybierz datę"
@@ -109,7 +107,8 @@
                 app:layout_constraintEnd_toEndOf="@+id/animalSexSpinner"
                 app:layout_constraintTop_toBottomOf="@+id/animalSexSpinner"
                 android:layout_marginTop="32dp"
-                app:layout_constraintStart_toStartOf="@+id/animalSexSpinner" />
+                app:layout_constraintStart_toEndOf="@+id/localityCheckBox"
+                android:layout_marginStart="16dp" />
 
         <Spinner
                 android:layout_width="0dp"

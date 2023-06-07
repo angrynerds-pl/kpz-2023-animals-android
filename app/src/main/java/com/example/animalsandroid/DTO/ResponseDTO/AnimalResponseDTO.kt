@@ -11,9 +11,9 @@ data class AnimalResponseDTO (
     @JsonProperty
     val id : Int,
     @JsonProperty
-    val chip : String,
+    val chip : String?,
     @JsonProperty
-    val name : String,
+    val name : String?,
     @JsonProperty
     val breed : BreedDTO,
     @JsonProperty
@@ -23,15 +23,15 @@ data class AnimalResponseDTO (
     @JsonProperty
     val ownerId : Int,
     @JsonProperty
-    val ownerName : String,
+    val ownerName : String?,
     @JsonProperty
-    val ownerLastName : String,
+    val ownerLastName : String?,
     @JsonProperty
-    val ownerPhoneNumber : String,
+    val ownerPhoneNumber : String?,
     @JsonProperty
-    val animalPicture : AnimalPictureDTO
+    val animalPicture: List<AnimalPictureDTO>
 
 ){
     constructor() : this(0,"", "", BreedDTO(), AnimalColorDTO(), AnimalSex.NIEZNANA, 0,
-        "", "", "", AnimalPictureDTO())
+        "", "", "", listOf(AnimalPictureDTO()))
 }

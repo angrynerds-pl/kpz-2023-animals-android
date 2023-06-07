@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.imageview.ShapeableImageView
+import com.squareup.picasso.Picasso
 
 class MyAdapter(private val animalsList : ArrayList<Animal>) :
     RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
@@ -13,7 +14,6 @@ class MyAdapter(private val animalsList : ArrayList<Animal>) :
     private lateinit var mListener : onItemClickListener
 
     interface onItemClickListener{
-
         fun onItemClick(position : Int)
 
     }
@@ -37,7 +37,13 @@ class MyAdapter(private val animalsList : ArrayList<Animal>) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val currentItem = animalsList[position]
-        holder.titleImage.setImageResource(currentItem.imageID) //holder.titleImage.setImageBitmap(currentItem.titleImage)
+        //holder.titleImage.setImageResource(currentItem.imageID)
+        //holder.titleImage.setImageBitmap(currentItem.titleImage)
+        if (!currentItem.imageUrl.isNullOrEmpty()) {
+            Picasso.get().load(currentItem.imageUrl).into(holder.titleImage)
+        } else {
+            holder.titleImage.setImageResource(R.drawable.a)
+        }
         holder.tvHeading.text = currentItem.heading
     }
 

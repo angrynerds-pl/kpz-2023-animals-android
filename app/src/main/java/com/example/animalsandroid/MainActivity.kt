@@ -53,8 +53,8 @@ class MainActivity : AppCompatActivity() {
 //            println("ID: ${color.id}, Color: ${color.name}")
 //        }
 
-        val animalControler = AnimalController()
-        animalControler.postAnimal("Kropka", "1234567890123456", AnimalSex.SAMICA, 1, 1, 1)
+//        val animalControler = AnimalController()
+//        animalControler.postAnimal("Kropka", "1234567890123456", AnimalSex.SAMICA, 1, 1, 1)
     }
 
 

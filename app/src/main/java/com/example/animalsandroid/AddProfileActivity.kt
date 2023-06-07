@@ -19,9 +19,7 @@ import com.example.animalsandroid.DTO.*
 import com.example.animalsandroid.adapters.AnimalBreedAdapter
 import com.example.animalsandroid.adapters.AnimalColorAdapter
 import com.example.animalsandroid.adapters.AnimalTypeAdapter
-import com.example.animalsandroid.databinding.ActivityAddLostReportBinding
 import com.example.animalsandroid.databinding.ActivityAddProfileBinding
-import com.example.animalsandroid.databinding.ActivityAddSeenReportBinding
 import com.example.animalsandroid.serverCommunication.controllers.AnimalColorController
 import com.example.animalsandroid.serverCommunication.controllers.AnimalController
 import com.example.animalsandroid.serverCommunication.controllers.TypeController
@@ -74,8 +72,14 @@ class AddProfileActivity : AppCompatActivity() {
     }
 
     fun addAnimal(){
-        val animalControler = AnimalController()
-        animalControler.postAnimal(name, chipNumber, selectedSex , 1, selectedColor.id, selectedBreed.id)
+        val animalController = AnimalController()
+        if(chipNumber == "") {
+            animalController.postAnimal(name, null, selectedSex, 1,
+                selectedColor.id, selectedBreed.id, compressBitmap(pickedBitMap))
+        }else {
+            animalController.postAnimal(name, chipNumber, selectedSex, 1,
+                selectedColor.id, selectedBreed.id, compressBitmap(pickedBitMap))
+        }
     }
 
     fun getData(){
@@ -83,15 +87,15 @@ class AddProfileActivity : AppCompatActivity() {
         chipNumber = findViewById<EditText>(R.id.chipNumber).text.toString()
     }
 
-    fun sendData(){  //chwilowo niepotrzebna ale zostawiam na wszelki wypadek
-        val intent = Intent()
-        intent.putExtra("EXTRA_BOOLEAN", true)
-        intent.putExtra("EXTRA_NAME", name)
-        intent.putExtra("EXTRA_CHIP", chipNumber)
-        intent.putExtra("EXTRA_JPEG", compressBitmap(pickedBitMap))
-        setResult(1, intent)
-        finish()
-    }
+//    fun sendData(){  //chwilowo niepotrzebna ale zostawiam na wszelki wypadek
+//        val intent = Intent()
+//        intent.putExtra("EXTRA_BOOLEAN", true)
+//        intent.putExtra("EXTRA_NAME", name)
+//        intent.putExtra("EXTRA_CHIP", chipNumber)
+//        intent.putExtra("EXTRA_JPEG", compressBitmap(pickedBitMap))
+//        setResult(1, intent)
+//        finish()
+//    }
 
     private fun compressBitmap(bitmap: Bitmap): ByteArray {
         val outputStream = ByteArrayOutputStream()
