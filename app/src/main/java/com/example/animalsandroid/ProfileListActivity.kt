@@ -48,7 +48,6 @@ class ProfileListActivity : AppCompatActivity() {
 
                 val animalController = AnimalController()
                 val pictures = animalController.getAnimalPicture(i.id)
-                println("XXXXXXXXXXXXXX" + pictures)
 
                 val animal = if(pictures.isNotEmpty()){
                     Animal(animalController.getAnimalPicture(i.id).get(0).url,i.name)
