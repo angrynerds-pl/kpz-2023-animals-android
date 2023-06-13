@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.imageview.ShapeableImageView
+import com.squareup.picasso.Picasso
 
 class LostAnimalAdapter(private val animalsList : ArrayList<LostAnimal>) :
     RecyclerView.Adapter<LostAnimalAdapter.MyViewHolder>() {
@@ -37,7 +38,12 @@ class LostAnimalAdapter(private val animalsList : ArrayList<LostAnimal>) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val currentItem = animalsList[position]
-        holder.titleImage.setImageResource(currentItem.imageID) // holder.titleImage.setImageBitmap(currentItem.titleImage)
+        //holder.titleImage.setImageResource(currentItem.imageID) // holder.titleImage.setImageBitmap(currentItem.titleImage)
+        if (!currentItem.imageID.isNullOrEmpty()) {
+            Picasso.get().load(currentItem.imageID).into(holder.titleImage)
+        } else {
+            holder.titleImage.setImageResource(R.drawable.a)
+        }
         holder.tvHeading.text = currentItem.heading
         holder.tvDate.text = currentItem.lostDate
     }

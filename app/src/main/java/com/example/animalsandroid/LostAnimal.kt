@@ -5,7 +5,7 @@ import java.io.Serializable
 
 class LostAnimal (
     //var titleImage : Bitmap,
-    var imageID : Int,
+    var imageID : String?,
     var heading : String,
     var lostDate : String
 ) : Serializable

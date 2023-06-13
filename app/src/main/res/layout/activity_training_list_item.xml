@@ -21,45 +21,51 @@
         android:id="@+id/itemTrainingName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:text="Nazwa: "
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/trainingNameText"
         app:layout_constraintTop_toBottomOf="@+id/profileImage" />
 
     <TextView
         android:id="@+id/itemTrainingDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="Opis: "
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/trainingDescText"
+        app:layout_constraintTop_toBottomOf="@+id/trainingNameText" />
+
+    <TextView
+        android:id="@+id/trainingNameText"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/custom_input"
+        android:paddingStart="7dp"
+        android:paddingEnd="7dp"
+        android:text=""
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/itemTrainingName" />
 
     <TextView
-        android:id="@+id/trainingNameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text=""
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/itemTrainingName"
-        app:layout_constraintTop_toTopOf="@+id/itemTrainingName" />
-
-    <TextView
         android:id="@+id/trainingDescText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:background="@drawable/custom_input"
+        android:paddingStart="7dp"
+        android:paddingEnd="7dp"
         android:text=""
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/itemTrainingDesc"
-        app:layout_constraintTop_toTopOf="@+id/itemTrainingDesc" />
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/trainingNameText"
+        app:layout_constraintStart_toStartOf="@+id/trainingNameText"
+        app:layout_constraintTop_toBottomOf="@+id/itemTrainingDesc" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

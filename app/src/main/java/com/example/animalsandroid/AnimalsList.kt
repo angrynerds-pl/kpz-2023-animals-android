@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.animalsandroid.DTO.ResponseDTO.AnimalResponseDTO
@@ -48,8 +49,23 @@ class AnimalsList : AppCompatActivity() {
 
     private fun getUserData(){
             for(i in animalsList){
-                val animal = LostAnimal(R.drawable.a, i.animal.name!!, i.lostDate.removeRange(10,i.lostDate.length))
-                newArrayList.add(animal)
+                //i.animal.name?.let { LostAnimal(null, it,i.lostDate) } -< żeby nie pobierało zdjęć to trzeba odkomentować i zakomentować ifa poniżej
+
+                //val animal = LostAnimal(R.drawable.a, i.animal.name!!, i.lostDate.removeRange(10,i.lostDate.length))
+                val animalController = AnimalController()
+                val pictures = animalController.getAnimalPicture(i.animal.id)
+
+                val animal = if(pictures.isNotEmpty()){
+                    i.animal.name?.let {
+                        LostAnimal(animalController.getAnimalPicture(i.animal.id).get(0).url,
+                            it, i.lostDate.removeRange(10,i.lostDate.length))
+                    }}
+                    else{
+                        i.animal.name?.let { LostAnimal(null, it, i.lostDate.removeRange(10, i.lostDate.length)) }
+                    }
+                if (animal != null) {
+                    newArrayList.add(animal)
+                }
         }
         //newRecyclerView.adapter = MyAdapter(newArrayList)
         var adapter = LostAnimalAdapter(newArrayList)

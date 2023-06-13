@@ -22,204 +22,236 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <TextView
             android:id="@+id/lostAnimalName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:textStyle="bold"
             android:text="Imię:"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/textLostAnimalName"
             app:layout_constraintTop_toBottomOf="@+id/imageViewLogo" />
-
 
         <TextView
             android:id="@+id/lostAnimalDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="Data zaginięcia:"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/lostAnimalSex"
-            app:layout_constraintTop_toBottomOf="@+id/lostAnimalSex" />
+            app:layout_constraintStart_toStartOf="@+id/textLostAnimalLostDate"
+            app:layout_constraintTop_toBottomOf="@+id/textLostAnimalSex" />
 
 
         <TextView
             android:id="@+id/lostAnimalType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="Typ:"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/lostAnimalName"
-            app:layout_constraintTop_toBottomOf="@+id/lostAnimalName" />
+            app:layout_constraintStart_toStartOf="@+id/textLostAnimalType"
+            app:layout_constraintTop_toBottomOf="@+id/textLostAnimalName" />
 
         <TextView
             android:id="@+id/lostAnimalBreed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="Rasa:"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/lostAnimalType"
-            app:layout_constraintTop_toBottomOf="@+id/lostAnimalType" />
+            app:layout_constraintStart_toStartOf="@+id/textLostAnimalBreed"
+            app:layout_constraintTop_toBottomOf="@+id/textLostAnimalType" />
 
 
         <TextView
             android:id="@+id/lostAnimalColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="Kolor:"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/lostAnimalBreed"
-            app:layout_constraintTop_toBottomOf="@+id/lostAnimalBreed" />
+            app:layout_constraintStart_toStartOf="@+id/textLostAnimalColor"
+            app:layout_constraintTop_toBottomOf="@+id/textLostAnimalBreed" />
 
 
         <TextView
             android:id="@+id/lostAnimalSex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="Płeć:"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/lostAnimalColor"
-            app:layout_constraintTop_toBottomOf="@+id/lostAnimalColor" />
+            app:layout_constraintStart_toStartOf="@+id/textLostAnimalSex"
+            app:layout_constraintTop_toBottomOf="@+id/textLostAnimalColor" />
 
         <TextView
             android:id="@+id/lostAnimalOwnerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="Imię właściciela:"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/lostAnimalDate"
-            app:layout_constraintTop_toBottomOf="@+id/lostAnimalDate" />
+            app:layout_constraintStart_toStartOf="@+id/textLostAnimalOwnerName"
+            app:layout_constraintTop_toBottomOf="@+id/textLostAnimalLostDate" />
 
         <TextView
             android:id="@+id/lostAnimalOwnerPhoneNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="Telefon:"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/lostAnimalOwnerName"
-            app:layout_constraintTop_toBottomOf="@+id/lostAnimalOwnerName" />
+            app:layout_constraintStart_toStartOf="@+id/textLostAnimalPhoneNumber"
+            app:layout_constraintTop_toBottomOf="@+id/textLostAnimalOwnerName" />
 
         <TextView
             android:id="@+id/lostAnimalOwnerChipNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="Chip:"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/lostAnimalOwnerPhoneNumber"
-            app:layout_constraintTop_toBottomOf="@+id/lostAnimalOwnerPhoneNumber" />
+            app:layout_constraintStart_toStartOf="@+id/textLostAnimalChip"
+            app:layout_constraintTop_toBottomOf="@+id/textLostAnimalPhoneNumber" />
 
 
         <TextView
             android:id="@+id/textLostAnimalName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/lostAnimalName"
-            app:layout_constraintTop_toTopOf="@+id/lostAnimalName" />
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/custom_input"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lostAnimalName" />
 
         <TextView
             android:id="@+id/textLostAnimalType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/lostAnimalType"
-            app:layout_constraintTop_toTopOf="@+id/lostAnimalType" />
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:background="@drawable/custom_input"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/textLostAnimalName"
+            app:layout_constraintStart_toStartOf="@+id/textLostAnimalName"
+            app:layout_constraintTop_toBottomOf="@+id/lostAnimalType" />
 
         <TextView
             android:id="@+id/textLostAnimalBreed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/lostAnimalBreed"
-            app:layout_constraintTop_toTopOf="@+id/lostAnimalBreed" />
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:background="@drawable/custom_input"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/textLostAnimalType"
+            app:layout_constraintStart_toStartOf="@+id/textLostAnimalType"
+            app:layout_constraintTop_toBottomOf="@+id/lostAnimalBreed" />
 
         <TextView
             android:id="@+id/textLostAnimalColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/lostAnimalColor"
-            app:layout_constraintTop_toTopOf="@+id/lostAnimalColor" />
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:background="@drawable/custom_input"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/textLostAnimalBreed"
+            app:layout_constraintStart_toStartOf="@+id/textLostAnimalBreed"
+            app:layout_constraintTop_toBottomOf="@+id/lostAnimalColor" />
 
         <TextView
             android:id="@+id/textLostAnimalSex"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/lostAnimalSex"
-            app:layout_constraintTop_toTopOf="@+id/lostAnimalSex" />
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:background="@drawable/custom_input"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/textLostAnimalColor"
+            app:layout_constraintStart_toStartOf="@+id/textLostAnimalColor"
+            app:layout_constraintTop_toBottomOf="@+id/lostAnimalSex" />
 
         <TextView
             android:id="@+id/textLostAnimalLostDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/lostAnimalDate"
-            app:layout_constraintTop_toTopOf="@+id/lostAnimalDate" />
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:background="@drawable/custom_input"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/textLostAnimalSex"
+            app:layout_constraintStart_toStartOf="@+id/textLostAnimalSex"
+            app:layout_constraintTop_toBottomOf="@+id/lostAnimalDate" />
 
         <TextView
             android:id="@+id/textLostAnimalOwnerName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/lostAnimalOwnerName"
-            app:layout_constraintTop_toTopOf="@+id/lostAnimalOwnerName" />
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:background="@drawable/custom_input"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/textLostAnimalLostDate"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textLostAnimalLostDate"
+            app:layout_constraintTop_toBottomOf="@+id/lostAnimalOwnerName" />
 
         <TextView
             android:id="@+id/textLostAnimalPhoneNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/lostAnimalOwnerPhoneNumber"
-            app:layout_constraintTop_toTopOf="@+id/lostAnimalOwnerPhoneNumber" />
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:background="@drawable/custom_input"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/textLostAnimalOwnerName"
+            app:layout_constraintStart_toStartOf="@+id/textLostAnimalOwnerName"
+            app:layout_constraintTop_toBottomOf="@+id/lostAnimalOwnerPhoneNumber" />
 
         <TextView
             android:id="@+id/textLostAnimalChip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/lostAnimalOwnerChipNumber"
-            app:layout_constraintTop_toTopOf="@+id/lostAnimalOwnerChipNumber" />
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:background="@drawable/custom_input"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/textLostAnimalPhoneNumber"
+            app:layout_constraintStart_toStartOf="@+id/textLostAnimalPhoneNumber"
+            app:layout_constraintTop_toBottomOf="@+id/lostAnimalOwnerChipNumber" />
 
         <TextView
             android:id="@+id/lostAnimalDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
-            android:textSize="14sp"
+            android:background="@drawable/custom_input"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lostAnimalOwnerChipNumber" />
+            app:layout_constraintTop_toBottomOf="@+id/textLostAnimalChip" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
