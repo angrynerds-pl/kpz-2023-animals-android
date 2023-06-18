@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         var policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
-        logged = 1
+       // logged = 1
         //val x = findViewById<ImageView>(R.id.imageViewLogo)
         //Picasso.get().load("https://kpz-storage.s3.amazonaws.com/2023-05-19T22%3A32%3A33.402560_Karakal.jpg").into(x)
         //testHttp()

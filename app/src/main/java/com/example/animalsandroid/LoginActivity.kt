@@ -56,4 +56,6 @@ class LoginActivity : AppCompatActivity() {
         setResult(2, intent)
         finish()
     }
+
+
 }
